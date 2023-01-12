@@ -1,4 +1,4 @@
-import BaseJourney from "../types"
+import {BaseJourney} from "../types"
 import Journey from "./Journey"
 interface JourneysProps {journeys: BaseJourney[]}
 

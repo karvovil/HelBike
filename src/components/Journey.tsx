@@ -1,4 +1,4 @@
-import BaseJourney from "../types";
+import {BaseJourney} from "../types";
 interface JourneyProps {journey: BaseJourney}
 
 const Journey = ({journey}: JourneyProps) => {

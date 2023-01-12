@@ -13,4 +13,4 @@ const Journey = ({journey}: JourneyProps) => {
     </div>
   );
 }
-  export default Journey
+export default Journey

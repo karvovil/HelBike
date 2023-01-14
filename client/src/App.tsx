@@ -1,14 +1,11 @@
-import {BaseJourney, BaseStation} from "./types";
+import {BaseStation} from "./types";
 import {Routes, Route, Link, useMatch} from "react-router-dom"
 import Journeys from "./components/Journeys";
 import Stations from "./components/StationList";
 import SingleStation from "./components/SingleStation";
+import axios from "axios";
+import { useEffect, useState } from "react";
 
-const journeys: Array<BaseJourney> = [
-  { id: 1, dep: "Laajalahden aukio", ret: "Teljäntie",        dis: 2043, dur: 500 },
-  { id: 2, dep: "Töölöntulli",       ret: "Pasilan asema",    dis: 1870, dur: 611 },
-  { id: 3, dep: "Näkinsilta",        ret: "Vilhonvuorenkatu", dis: 1025, dur: 399 }
-];
 const stations: Array<BaseStation> = [
   {name: "Hanasaari",      address: "Hanasaarenranta 1"},
   {name: "Keilalahti",     address: "Keilalahdentie 2" },
@@ -17,8 +14,20 @@ const stations: Array<BaseStation> = [
 const stationNames = stations.map(s=>s.name) 
 
 const App = () => {
+
+  const [journeys, setJourneys] = useState([])
+
+  useEffect(() => {
+    axios
+      .get('http://localhost:3001/api/journeys')
+      .then(response => {
+        setJourneys(response.data)
+      })
+  }, [])
+
   const match = useMatch('/stations/:id')
   const station = match ? stations.find(s => s.name === (match.params.id)) : null
+
   return (
     <div>
       <div>

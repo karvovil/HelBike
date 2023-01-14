@@ -1,7 +1,21 @@
+import axios from "axios";
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 import {BaseStation} from "../types";
-interface StationProps {station: BaseStation | null | undefined}
 
-const SingleStation = ({station}: StationProps) => {
+const SingleStation = () => {
+
+  const { id } = useParams();
+  const [station, setStation] = useState<BaseStation>({name: "", address: ""});
+  
+  useEffect(() => {
+    axios
+      .get(`http://localhost:3001/api/stations/${id}`)
+      .then(response => {
+        setStation(response.data)
+      })
+  }, [])
+  
   if (!station) {return null}
   return (
     <div style={{border: '1px solid black'}}>

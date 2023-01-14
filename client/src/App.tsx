@@ -1,27 +1,29 @@
-import {BaseStation} from "./types";
+import {BaseJourney, BaseStation} from "./types";
 import {Routes, Route, Link, useMatch} from "react-router-dom"
 import Journeys from "./components/Journeys";
-import Stations from "./components/StationList";
 import SingleStation from "./components/SingleStation";
 import axios from "axios";
 import { useEffect, useState } from "react";
-
-const stations: Array<BaseStation> = [
-  {name: "Hanasaari",      address: "Hanasaarenranta 1"},
-  {name: "Keilalahti",     address: "Keilalahdentie 2" },
-  {name: "Westendinasema", address: "Westendintie 1"   }
-];
-const stationNames = stations.map(s=>s.name) 
+import StationList from "./components/StationList";
 
 const App = () => {
 
-  const [journeys, setJourneys] = useState([])
+  const [journeys, setJourneys] = useState<BaseJourney[]>([])
+  const [stations, setStations] = useState<BaseStation[]>([])
 
   useEffect(() => {
     axios
       .get('http://localhost:3001/api/journeys')
       .then(response => {
         setJourneys(response.data)
+      })
+  }, [])
+
+  useEffect(() => {
+    axios
+      .get('http://localhost:3001/api/stations')
+      .then(response => {
+        setStations(response.data)
       })
   }, [])
 
@@ -41,7 +43,7 @@ const App = () => {
 
       <Routes>  
         <Route path="/journeys" element={<Journeys journeys={journeys} />} />
-        <Route path="/stations" element={<Stations stations={stationNames} />} />
+        <Route path="/stations" element={<StationList stations={stations.map(s=>s.name)}/>} />
         <Route path="/stations/:id" element={<SingleStation station={station} />} />
       </Routes>
 

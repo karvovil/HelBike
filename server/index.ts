@@ -1,5 +1,6 @@
 import express from 'express';
 import journeyRouter from './routes/journeys';
+import stationRouter from './routes/stations';
 import cors from 'cors';
 const app = express();
 
@@ -15,6 +16,7 @@ app.get('/hello', (_req, res) => {
 });
 
 app.use('/api/journeys', journeyRouter);
+app.use('/api/stations', stationRouter);
 
 app.listen(PORT, () => {
   console.log(`Server launched on port ${PORT}`);

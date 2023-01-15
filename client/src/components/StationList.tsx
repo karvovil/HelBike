@@ -1,11 +1,11 @@
 import axios from "axios"
 import { useEffect, useState } from "react"
 import { Link } from "react-router-dom"
-import { BaseStation } from "../types"
+import { FullStation } from "../types"
 
 const StationList = () => {
 
-  const [stations, setStations] = useState<BaseStation[]>([])
+  const [stations, setStations] = useState<FullStation[]>([])
 
   useEffect(() => {
     axios
@@ -20,8 +20,8 @@ const StationList = () => {
       <h2>Stations</h2>
       <ul>
         {stations.map( station => 
-          <li key={station.name}>
-            <Link to={`/stations/${station.name}`}>{station.name}</Link>
+          <li key={station.ID}>
+            <Link to={`/stations/${station.Nimi}`}>{station.Nimi}</Link>
           </li>
         )}
       </ul>

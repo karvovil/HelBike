@@ -1,29 +1,30 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import {BaseStation} from "../types";
 
 const SingleStation = () => {
 
   const { id } = useParams();
-  const [station, setStation] = useState<BaseStation>({name: "", address: ""});
+  const [name, setName] = useState<string>("");
+  const [address, setAddress] = useState<string>("");
   
   useEffect(() => {
     axios
       .get(`http://localhost:3001/api/stations/${id}`)
       .then(response => {
-        setStation(response.data)
+        setName(response.data.Nimi)
+        setAddress(response.data.Osoite)
       })
   }, [])
   
-  if (!station) {return null}
+  if (!name) {return null}
   return (
     <div style={{border: '1px solid black'}}>
       <p>
-        {station.name} 
+        {name} 
       </p>
       <p>
-        {station.address}
+        {address}
       </p>
     </div>
   );

@@ -1,11 +1,13 @@
-import {BaseJourney} from "../types"
+import { FullJourney } from "../types"
 import Journey from "./Journey"
-interface JourneysProps {journeys: BaseJourney[]}
+interface JourneysProps {journeys: FullJourney[]}
 
 const Journeys = ({journeys}: JourneysProps) => {
   return(
     <div>
-      {journeys.map( j => <Journey key={j.id} journey={j}/> )}
+      {journeys.map( j => <Journey 
+        key={j.Departure} 
+        journey={j}/> )}
     </div>
   );
 }

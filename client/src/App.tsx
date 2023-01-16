@@ -1,4 +1,4 @@
-import {BaseJourney} from "./types";
+import {FullJourney} from "./types";
 import {Routes, Route, Link} from "react-router-dom"
 import Journeys from "./components/Journeys";
 import SingleStation from "./components/SingleStation";
@@ -8,7 +8,7 @@ import StationList from "./components/StationList";
 
 const App = () => {
 
-  const [journeys, setJourneys] = useState<BaseJourney[]>([])
+  const [journeys, setJourneys] = useState<FullJourney[]>([])
 
   useEffect(() => {
     axios

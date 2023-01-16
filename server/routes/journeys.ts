@@ -1,14 +1,27 @@
 import express from 'express';
-import { BaseJourney } from '../types';
+import { FullJourney } from '../types';
+import * as fs from "fs";
+import * as path from "path";
+import { parse } from 'csv-parse';
+
+
+let journeys: FullJourney[] = [];
+const csvFilePath = path.resolve(__dirname, '../files/2021-05.csv');
+const fileContent = fs.readFileSync(csvFilePath, { encoding: 'utf-8' });
+
+parse(fileContent, {
+  delimiter: ',',
+  columns: true,
+  to: 200
+}, (error, result: FullJourney[]) => {
+  if (error) {
+    console.error(error);
+  }
+  journeys = result.slice(0, 200);
+}); 
 
 const router = express.Router();
 
-const journeys: Array<BaseJourney> = [
-  { "id": 1, "dep": "Laajalahden aukio", "ret": "Teljäntie",        "dis": 2043, "dur": 500 },
-  { "id": 2, "dep": "Töölöntulli",       "ret": "Pasilan asema",    "dis": 1870, "dur": 611 },
-  { "id": 3, "dep": "Näkinsilta",        "ret": "Vilhonvuorenkatu", "dis": 1025, "dur": 399 }
-];
-  
 router.get('/', (_req, res) => {
   res.send(journeys);
 });

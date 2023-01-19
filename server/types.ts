@@ -1,5 +1,5 @@
 export interface BaseStation {
-  id:      number
+  id:      string
   name:    string
   address: string
 }
@@ -9,7 +9,7 @@ export interface StationWithTotals extends BaseStation {
 }
 export interface CSVStation {
   FID:        number
-  ID:         number
+  ID:         string
   Nimi:       string
   Namn:       string
   Name:       string
@@ -18,7 +18,7 @@ export interface CSVStation {
   Kaupunki:   string
   Stad:       string
   Operaattor: string
-  Kapasiteet: string
+  Kapasiteet: number
   x:          number
   y:          number
 }
@@ -32,9 +32,9 @@ export interface BaseJourney {
 export interface CSVJourney {
   "Departure":              string
   "Return":                 string
-  "Departure station id":   number
+  "Departure station id":   string
   "Departure station name": string
-  "Return station id":      number
+  "Return station id":      string
   "Return station name":    string
   "Covered distance (m)":   number
   "Duration (sec.)":        number

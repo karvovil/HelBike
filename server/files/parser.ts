@@ -16,9 +16,19 @@ export const parseJourneys = () => {
     columns: true,
     to: 1000,
     on_record: (line: CSVJourney) => {
-      if (line["Covered distance (m)"] < 10) {
+      if (line["Covered distance (m)"] < 10 || isNaN(line["Covered distance (m)"])) {
         return;
       }
+      if (line["Duration (sec.)"] < 10 || isNaN(line["Duration (sec.)"])) {
+        return;
+      }
+      if (!line["Departure station name"] || !isString(line["Departure station name"])) {
+        return;
+      }
+      if (!line["Return station name"] || !isString(line["Return station name"])) {
+        return;
+      }
+      
       id++;
       const baseJourney: BaseJourney = {
         id:                   id,
@@ -48,6 +58,15 @@ export const parseStations = () => {
     delimiter: ',',
     columns: true,
     on_record: (line: CSVStation) => {
+      if (!line["ID"] || !isString(line["ID"])) {
+        return;
+      }
+      if (!line["Nimi"] || !isString(line["Nimi"])) {
+        return;
+      }
+      if (!line["Osoite"] || !isString(line["Osoite"])) {
+        return;
+      }
       const BaseStation: BaseStation = {
         id:      line.ID,
         name:    line.Nimi,
@@ -62,4 +81,8 @@ export const parseStations = () => {
   });
   console.log("stations parsed");
   return stations;
+};
+
+const isString = (text: unknown): text is string => {
+  return typeof text === 'string' || text instanceof String;
 };

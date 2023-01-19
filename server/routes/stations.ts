@@ -1,37 +1,9 @@
 import express from 'express';
-import { FullJourney, FullStation } from '../types';
-import * as fs from "fs";
-import * as path from "path";
-import { parse } from 'csv-parse';
+import { BaseStation, BaseJourney, StationWithTotals } from '../types';
+import { parseJourneys, parseStations } from '../files/parser';
 
-let stations: FullStation[] = [];
-const csvFilePath = path.resolve(__dirname, '../files/Helsingin_ja_Espoon_kaupunkipy%C3%B6r%C3%A4asemat_avoin.csv');
-const fileContent = fs.readFileSync(csvFilePath, { encoding: 'utf-8' });
-  
-parse(fileContent, {
-  delimiter: ',',
-  columns: true,
-}, (error, result: FullStation[]) => {
-  if (error) {
-    console.error(error);
-  }
-  stations = result;
-});
-
-let journeys: FullJourney[] = [];
-const csvFilePath2 = path.resolve(__dirname, '../files/2021-05.csv');
-const fileContent2 = fs.readFileSync(csvFilePath2, { encoding: 'utf-8' });
-
-parse(fileContent2, {
-  delimiter: ',',
-  columns: true,
-  to: 200
-}, (error, result: FullJourney[]) => {
-  if (error) {
-    console.error(error);
-  }
-  journeys = result.slice(0, 200);
-}); 
+const stations: BaseStation[] = parseStations();
+const journeys: BaseJourney[] = parseJourneys();
 
 const router = express.Router();
   
@@ -41,11 +13,15 @@ router.get('/', (_req, res) => {
 
 router.get('/:id', (req, res) => {
   const name = req.params.id;
-  const station = stations.find(s => s.Nimi === name);
-  const startingFromTotal = journeys.filter(j => j['Departure station id'] == station?.ID).length;
-  const endingToTotal = journeys.filter(j => j['Return station id'] == station?.ID).length;
-  const stationWithTotals = {...station, startingFromTotal, endingToTotal};
-  res.send(stationWithTotals);
+  const station = stations.find(s => s.name === name);
+  if (station){
+    const departureTotal = journeys.filter(j => j.departureStationName == station.name).length;
+    const returnTotal = journeys.filter(j => j.returnStationName == station.name).length;
+    const stationWithTotals: StationWithTotals = {...station, departureTotal, returnTotal};
+    res.send(stationWithTotals);
+  } else{
+    res.status(404).send('Sorry, cant find that');
+  }
 });
 
 export default router;

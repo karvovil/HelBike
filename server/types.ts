@@ -1,15 +1,13 @@
-export interface BaseJourney {
-  id:  number;
-  dep: string;
-  ret: string;
-  dis: number;
-  dur: number;
-}
 export interface BaseStation {
-  name:    string;
-  address: string;
+  id:      number
+  name:    string
+  address: string
 }
-export interface FullStation {
+export interface StationWithTotals extends BaseStation {
+  departureTotal: number
+  returnTotal:    number
+}
+export interface CSVStation {
   FID:        number
   ID:         number
   Nimi:       string
@@ -24,8 +22,14 @@ export interface FullStation {
   x:          number
   y:          number
 }
-
-export interface FullJourney{
+export interface BaseJourney {
+  id:                   number
+  departureStationName: string
+  returnStationName:    string
+  distanceCovered:      number
+  duration:             number
+}
+export interface CSVJourney {
   "Departure":              string
   "Return":                 string
   "Departure station id":   number
@@ -34,5 +38,4 @@ export interface FullJourney{
   "Return station name":    string
   "Covered distance (m)":   number
   "Duration (sec.)":        number
-
 }

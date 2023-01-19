@@ -14,10 +14,10 @@ const SingleStation = () => {
     axios
       .get(`http://localhost:3001/api/stations/${id}`)
       .then(response => {
-        setName(response.data.Nimi)
-        setAddress(response.data.Osoite)
-        setStartTotal(response.data.startingFromTotal)
-        setEndTotal(response.data.endingToTotal)
+        setName(response.data.name)
+        setAddress(response.data.address)
+        setStartTotal(response.data.departureTotal)
+        setEndTotal(response.data.returnTotal)
       })
   }, [])
   

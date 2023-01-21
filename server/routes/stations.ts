@@ -1,6 +1,7 @@
 import express from 'express';
 import { BaseStation, BaseJourney, StationWithTotals } from '../types';
 import { parseJourneys, parseStations } from '../files/parser';
+import { Station } from '../models';
 
 const stations: BaseStation[] = parseStations();
 const journeys: BaseJourney[] = parseJourneys();
@@ -8,6 +9,7 @@ const journeys: BaseJourney[] = parseJourneys();
 const router = express.Router();
   
 router.get('/', (_req, res) => {
+  Station.findAll().then(stations => console.log(stations)).catch(e => console.log(e));
   res.send(stations);
 });
 

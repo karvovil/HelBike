@@ -1,13 +1,14 @@
-import { Model, DataTypes } from 'sequelize';
+import { Model, DataTypes, InferAttributes, InferCreationAttributes } from 'sequelize';
 
 import { sequelize } from '../util/db';
 
-class Station extends Model {}
+class Station extends Model <InferAttributes<Station>, InferCreationAttributes<Station>>{}
 
 Station.init({
   id: {
-    type: DataTypes.TEXT,
+    type: DataTypes.NUMBER,
     primaryKey: true,
+    allowNull: false,
   },
   name: {
     type: DataTypes.TEXT,

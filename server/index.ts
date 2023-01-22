@@ -4,6 +4,11 @@ import stationRouter from './routes/stations';
 import cors from 'cors';
 
 import { connectToDB } from './util/db';
+import { parseStations } from './files/parser';
+import { Station } from './models';
+
+const stations = parseStations();
+
 const app = express();
 
 // eslint-disable-next-line @typescript-eslint/no-unsafe-call
@@ -22,6 +27,8 @@ app.use('/api/stations', stationRouter);
 
 const start = async () => {
   await connectToDB();
+  await Station.bulkCreate(stations);
+  
   app.listen(PORT, () => {
     console.log(`Server launched on port ${PORT}`);
   });

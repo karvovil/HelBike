@@ -2,7 +2,13 @@ import { Model, DataTypes, InferAttributes, InferCreationAttributes } from 'sequ
 import { sequelize } from '../util/db';
 
 class Journey extends Model
-<InferAttributes<Journey>, InferCreationAttributes<Journey>>{}
+<InferAttributes<Journey>, InferCreationAttributes<Journey>>{
+  declare id: number;
+  declare departureStationName: string;
+  declare returnStationName: string;
+  declare distanceCovered: number;
+  declare duration: number;
+}
 
 Journey.init({
   id: {
@@ -23,7 +29,7 @@ Journey.init({
     allowNull: false
   },
   duration: {
-    type: DataTypes.TEXT,
+    type: DataTypes.INTEGER,
     allowNull: false
   },
 

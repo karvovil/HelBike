@@ -24,7 +24,9 @@ export interface CSVStation {
 }
 export interface BaseJourney {
   id:                   number
+  departureStationId:   number
   departureStationName: string
+  returnStationId:      number
   returnStationName:    string
   distanceCovered:      number
   duration:             number

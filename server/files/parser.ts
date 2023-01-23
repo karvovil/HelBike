@@ -17,7 +17,13 @@ export const parseJourneys = () => {
     columns: true,
     to: 1000,
     on_record: (line: CSVJourney) => {
+      if (isNaN(line["Departure station id"])) {
+        return;
+      }
       if (!line["Departure station name"] || !isString(line["Departure station name"])) {
+        return;
+      }
+      if (isNaN(line["Return station id"])) {
         return;
       }
       if (!line["Return station name"] || !isString(line["Return station name"])) {
@@ -33,7 +39,9 @@ export const parseJourneys = () => {
       id++;
       const baseJourney: BaseJourney = {
         id:                   id,
+        departureStationId:   line["Departure station id"],
         departureStationName: line["Departure station name"],
+        returnStationId:      line["Return station id"],
         returnStationName:    line["Return station name"],
         distanceCovered:      line["Covered distance (m)"],
         duration:             line["Duration (sec.)"]

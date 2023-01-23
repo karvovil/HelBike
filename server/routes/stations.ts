@@ -17,7 +17,9 @@ router.get('/:id', (req, res) => {
     }else{
       const departureTotal = 1;
       const returnTotal = 1;
-      const stationWithTotals = {...station, departureTotal, returnTotal};
+      const stationWithTotals = {...station.toJSON(), departureTotal, returnTotal};
+      console.log(stationWithTotals);
+      
       res.send(stationWithTotals);
     }
   }).catch( err => console.error(err));

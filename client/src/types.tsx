@@ -18,13 +18,15 @@ export interface CSVStation {
   Kaupunki:   string
   Stad:       string
   Operaattor: string
-  Kapasiteet: string
+  Kapasiteet: number
   x:          number
   y:          number
 }
 export interface BaseJourney {
   id:                   number
+  departureStationId:   number
   departureStationName: string
+  returnStationId:      number
   returnStationName:    string
   distanceCovered:      number
   duration:             number

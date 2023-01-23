@@ -4,10 +4,11 @@ import stationRouter from './routes/stations';
 import cors from 'cors';
 
 import { connectToDB } from './util/db';
-import { parseStations } from './files/parser';
-import { Station } from './models';
+import { parseJourneys, parseStations } from './files/parser';
+import { Journey, Station } from './models';
 
 const stations = parseStations();
+const journeys = parseJourneys();
 
 const app = express();
 
@@ -28,7 +29,7 @@ app.use('/api/stations', stationRouter);
 const start = async () => {
   await connectToDB();
   await Station.bulkCreate(stations);
-  
+  await Journey.bulkCreate(journeys);  
   app.listen(PORT, () => {
     console.log(`Server launched on port ${PORT}`);
   });

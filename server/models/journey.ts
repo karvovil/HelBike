@@ -1,7 +1,8 @@
-import { Model, DataTypes } from 'sequelize';
+import { Model, DataTypes, InferAttributes, InferCreationAttributes } from 'sequelize';
 import { sequelize } from '../util/db';
 
-class Journey extends Model {}
+class Journey extends Model
+<InferAttributes<Journey>, InferCreationAttributes<Journey>>{}
 
 Journey.init({
   id: {

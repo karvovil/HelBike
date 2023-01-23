@@ -21,7 +21,7 @@ const StationList = () => {
       <ul>
         {stations.map( station => 
           <li key={station.id}>
-            <Link to={`/stations/${station.name}`}>{station.name}</Link>
+            <Link to={`/stations/${station.id}`}>{station.name}</Link>
           </li>
         )}
       </ul>

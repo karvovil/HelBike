@@ -6,7 +6,7 @@ class Station extends Model <InferAttributes<Station>, InferCreationAttributes<S
 
 Station.init({
   id: {
-    type: DataTypes.NUMBER,
+    type: DataTypes.INTEGER,
     primaryKey: true,
     allowNull: false,
   },

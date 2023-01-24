@@ -1,8 +1,8 @@
 import Station from './station';
 import Journey from './journey';
 
-Station.hasOne(Journey, {as: 'departureStation'});
-Station.hasOne(Journey, {as: 'returnStation'});
+Station.hasMany(Journey, {as:'departureStations', foreignKey: 'departureStationId'});
+Station.hasMany(Journey, {as:'returnStations', foreignKey: 'returnStationId'});
 
 void Station.sync({ alter: true });
 void Journey.sync({ alter: true });

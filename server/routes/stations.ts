@@ -1,5 +1,5 @@
 import express from 'express';
-import { Station } from '../models';
+import { Journey, Station } from '../models';
 
 const router = express.Router();
   
@@ -11,17 +11,34 @@ router.get('/', (_req, res) => {
 });
 
 router.get('/:id', (req, res) => {
-  Station.findByPk(req.params.id).then( (station) => {
-    if (!station){
-      res.status(404).send('Sorry, cant find that ');
-    }else{
-      const departureTotal = 1;
-      const returnTotal = 1;
-      const stationWithTotals = {...station.toJSON(), departureTotal, returnTotal};
-      console.log(stationWithTotals);
-      
-      res.send(stationWithTotals);
-    }
-  }).catch( err => console.error(err));
+
+  Station.findOne({
+    where: {id: req.params.id},
+    include: [
+      {
+        model: Journey,
+        as: 'departureStations',
+        attributes: ['id']
+      },
+      {
+        model: Journey,
+        as: 'returnStations',
+        attributes: ['id']
+      }
+    ],
+  })
+    .then( (station) => {
+      if (!station){
+        res.status(404).send('Sorry, cant find that ');
+      }else{
+        res.json({  
+          id:             station.id,
+          name:           station.name,
+          address:        station.address,
+          departureTotal: station.departureStations?.length,
+          returnTotal:    station.returnStations?.length
+        });
+      }
+    }).catch( err => console.error(err));
 });
 export default router;

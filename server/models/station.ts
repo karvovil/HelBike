@@ -1,4 +1,4 @@
-import { Model, DataTypes, InferAttributes, InferCreationAttributes } from 'sequelize';
+import { Model, DataTypes, InferAttributes, InferCreationAttributes, NonAttribute } from 'sequelize';
 import { sequelize } from '../util/db';
 
 class Station extends Model
@@ -6,6 +6,8 @@ class Station extends Model
   declare id: number;
   declare name: string;
   declare address: string;
+  declare departureStations?: NonAttribute<Array<number>>;
+  declare returnStations?: NonAttribute<Array<number>>;
 }
 
 Station.init({

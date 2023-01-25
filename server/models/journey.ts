@@ -1,9 +1,9 @@
-import { Model, DataTypes, InferAttributes, InferCreationAttributes } from 'sequelize';
+import { Model, DataTypes, InferAttributes, InferCreationAttributes, CreationOptional } from 'sequelize';
 import { sequelize } from '../util/db';
 
 class Journey extends Model
 <InferAttributes<Journey>, InferCreationAttributes<Journey>>{
-  declare id: number;
+  declare id: CreationOptional<number>;
   declare departureStationName: string;
   declare returnStationName: string;
   declare distanceCovered: number;

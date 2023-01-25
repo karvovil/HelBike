@@ -6,7 +6,8 @@ export const sequelize = new Sequelize(
   'testPass',
   {
     dialect: 'sqlite',
-    storage: "./db/database.sqlite"
+    storage: "./db/database.sqlite",
+    logging: false,
   });
 
 export const connectToDB = async () => {

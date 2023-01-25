@@ -1,32 +1,34 @@
-
 import * as fs from "fs";
 import * as path from "path";
 import { parse } from 'csv-parse';
 import { BaseJourney, BaseStation, CSVJourney, CSVStation } from "../types";
 
-export const parseJourneys = () => {
+export const parseJourneys = (filePath: string, stationIds: number[]) => {
   
-  const csvFilePath = path.resolve(__dirname, '../files/2021-05.csv');
+  const csvFilePath = path.resolve(__dirname, filePath);
   const fileContent = fs.readFileSync(csvFilePath, { encoding: 'utf-8' });
   
   const journeys: BaseJourney[] = [];
-  let id = 0;
-
+  
   parse(fileContent, {
     delimiter: ',',
     columns: true,
-    to: 1000,
+    //to: 10000,
     on_record: (line: CSVJourney) => {
-      if (isNaN(line["Departure station id"])) {
+      if (!line['Departure station id'] || isNaN(line["Departure station id"]) || !stationIds.includes(line['Departure station id']) ) {
+        console.log('invalid departure station id', line['Departure station id']);
         return;
       }
       if (!line["Departure station name"] || !isString(line["Departure station name"])) {
+        console.log(line);
         return;
       }
-      if (isNaN(line["Return station id"])) {
+      if (!line['Return station id'] || isNaN(line["Return station id"]) || !stationIds.includes(line['Return station id'])){
+        console.log('invalid return station id', line['Return station id']);
         return;
       }
       if (!line["Return station name"] || !isString(line["Return station name"])) {
+        console.log(line);
         return;
       }
       if (line["Covered distance (m)"] < 10 || isNaN(line["Covered distance (m)"])) {
@@ -36,9 +38,7 @@ export const parseJourneys = () => {
         return;
       }
       
-      id++;
-      const baseJourney: BaseJourney = {
-        id:                   id,
+      const journey = {
         departureStationId:   line["Departure station id"],
         departureStationName: line["Departure station name"],
         returnStationId:      line["Return station id"],
@@ -46,7 +46,7 @@ export const parseJourneys = () => {
         distanceCovered:      line["Covered distance (m)"],
         duration:             line["Duration (sec.)"]
       };
-      journeys.push(baseJourney);
+      journeys.push(journey);
     },
   }, (error) => {
     if (error) {

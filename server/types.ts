@@ -23,7 +23,7 @@ export interface CSVStation {
   y:          number
 }
 export interface BaseJourney {
-  id:                   number
+  id?:                  number
   departureStationId:   number
   departureStationName: string
   returnStationId:      number

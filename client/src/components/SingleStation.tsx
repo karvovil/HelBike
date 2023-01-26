@@ -16,8 +16,8 @@ const SingleStation = () => {
       .then(response => {
         setName(response.data.name)
         setAddress(response.data.address)
-        setStartTotal(response.data.departureTotal)
-        setEndTotal(response.data.returnTotal)
+        setStartTotal(response.data.departingTotal)
+        setEndTotal(response.data.returningTotal)
       })
   }, [])
   

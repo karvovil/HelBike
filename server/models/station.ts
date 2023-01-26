@@ -6,8 +6,8 @@ class Station extends Model
   declare id: number;
   declare name: string;
   declare address: string;
-  declare departureStations?: NonAttribute<Array<number>>;
-  declare returnStations?: NonAttribute<Array<number>>;
+  declare departingTotal?: NonAttribute<number>;
+  declare returningTotal?: NonAttribute<number>;
 }
 
 Station.init({

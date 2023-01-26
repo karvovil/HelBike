@@ -1,5 +1,6 @@
 import express from 'express';
 import { Journey, Station } from '../models';
+import { sequelize } from '../util/db';
 
 const router = express.Router();
   
@@ -14,16 +15,22 @@ router.get('/:id', (req, res) => {
 
   Station.findOne({
     where: {id: req.params.id},
+    attributes: { 
+      include: [
+        [sequelize.fn("COUNT", sequelize.fn('DISTINCT', sequelize.col('departingJourneys.id'))), "departingTotal" ],
+        [sequelize.fn("COUNT", sequelize.fn('DISTINCT', sequelize.col('returningJourneys.id'))), "returningTotal"]
+      ] 
+    },
     include: [
       {
         model: Journey,
-        as: 'departureStations',
-        attributes: ['id']
+        as: 'departingJourneys',
+        attributes: [],
       },
       {
         model: Journey,
-        as: 'returnStations',
-        attributes: ['id']
+        as: 'returningJourneys',
+        attributes: [],
       }
     ],
   })
@@ -31,13 +38,9 @@ router.get('/:id', (req, res) => {
       if (!station){
         res.status(404).send('Sorry, cant find that ');
       }else{
-        res.json({  
-          id:             station.id,
-          name:           station.name,
-          address:        station.address,
-          departureTotal: station.departureStations?.length,
-          returnTotal:    station.returnStations?.length
-        });
+        console.log(station);
+        
+        res.json(station);
       }
     }).catch( err => console.error(err));
 });

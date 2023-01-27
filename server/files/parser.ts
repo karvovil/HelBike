@@ -2,95 +2,123 @@ import * as fs from "fs";
 import * as path from "path";
 import { parse } from 'csv-parse';
 import { BaseJourney, BaseStation, CSVJourney, CSVStation } from "../types";
+import { finished } from 'stream/promises';
 
-export const parseJourneys = (filePath: string, stationIds: number[]) => {
+export const parseJourneys = async (filePath: string, stationIds: number[]) => {
   
   const csvFilePath = path.resolve(__dirname, filePath);
-  const fileContent = fs.readFileSync(csvFilePath, { encoding: 'utf-8' });
-  
   const journeys: BaseJourney[] = [];
   
-  parse(fileContent, {
-    delimiter: ',',
-    columns: true,
-    //to: 10000,
-    on_record: (line: CSVJourney) => {
-      if (!line['Departure station id'] || isNaN(line["Departure station id"]) || !stationIds.includes(line['Departure station id']) ) {
-        console.log('invalid departure station id', line['Departure station id']);
-        return;
-      }
-      if (!line["Departure station name"] || !isString(line["Departure station name"])) {
-        console.log(line);
-        return;
-      }
-      if (!line['Return station id'] || isNaN(line["Return station id"]) || !stationIds.includes(line['Return station id'])){
-        console.log('invalid return station id', line['Return station id']);
-        return;
-      }
-      if (!line["Return station name"] || !isString(line["Return station name"])) {
-        console.log(line);
-        return;
-      }
-      if (line["Covered distance (m)"] < 10 || isNaN(line["Covered distance (m)"])) {
-        return;
-      }
-      if (line["Duration (sec.)"] < 10 || isNaN(line["Duration (sec.)"])) {
-        return;
-      }
-      
-      const journey = {
-        departureStationId:   line["Departure station id"],
-        departureStationName: line["Departure station name"],
-        returnStationId:      line["Return station id"],
-        returnStationName:    line["Return station name"],
-        distanceCovered:      line["Covered distance (m)"],
-        duration:             line["Duration (sec.)"]
-      };
-      journeys.push(journey);
-    },
-  }, (error) => {
-    if (error) {
-      console.error(error);
-    }
+  const parser = fs
+    .createReadStream(csvFilePath)
+    .pipe(parse({
+      delimiter: ',',
+      columns: true,
+      on_record: (line: CSVJourney) => {
+
+        const journey: BaseJourney = {
+          departureStationId:   line["Departure station id"],
+          departureStationName: line["Departure station name"],
+          returnStationId:      line["Return station id"],
+          returnStationName:    line["Return station name"],
+          distanceCovered:      line["Covered distance (m)"],
+          duration:             line["Duration (sec.)"]
+        };      
+        return journey;
+      },
+    }));
+  parser.on('readable', () => {
+    let journey: BaseJourney;
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+    while ((journey = parser.read()) !== null) {    
+      if (validateJourney(journey, stationIds)){
+        journeys.push(journey);
+      }}
   });
+  
+  parser.on('error', (err) => {
+    console.error(err.message);
+  });
+  
+  await finished(parser);
   return journeys;
 };
 
-export const parseStations = () => {
-  const csvFilePath = path.resolve(__dirname, '../files/Helsingin_ja_Espoon_kaupunkipy%C3%B6r%C3%A4asemat_avoin.csv');
-  const fileContent = fs.readFileSync(csvFilePath, { encoding: 'utf-8' });
+export const parseStations = async (filePath: string) => {
   
+  const csvFilePath = path.resolve(__dirname, filePath); 
   const stations: BaseStation[] = [];
   
-  parse(fileContent, {
-    delimiter: ',',
-    columns: true,
-    on_record: (line: CSVStation) => {
-      
-      if (isNaN(line["ID"])) {
-        return;
+  const parser = fs
+    .createReadStream(csvFilePath)
+    .pipe(parse( {
+      delimiter: ',',
+      columns: true,
+      on_record: (line: CSVStation) => {
+        const baseStation: BaseStation = {
+          id:      line.ID,
+          name:    line.Nimi,
+          address: line.Osoite
+        };      
+        return (baseStation);
+      },
+    }));
+
+  parser.on('readable', () => {
+    let station: BaseStation;
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+    while ((station = parser.read()) !== null) {
+      if(validateStation(station)){
+        stations.push(station);
       }
-      if (!line["Nimi"] || !isString(line["Nimi"])) {
-        return;
-      }
-      if (!line["Osoite"] || !isString(line["Osoite"])) {
-        return;
-      }
-      const baseStation: BaseStation = {
-        id:      line.ID,
-        name:    line.Nimi,
-        address: line.Osoite
-      };      
-      stations.push(baseStation);
-    },
-  }, (error) => {
-    if (error) {
-      console.error(error);
     }
   });
+  parser.on('error', function(err){
+    console.error(err.message);
+  });
+
+  await finished(parser);
   return stations;
 };
 
+const validateStation = (station: BaseStation) => {
+  
+  if (isNaN(station.id)) {
+    return false;
+  }
+  if (!station.name || !isString(station.name)) {
+    return false;
+  }
+  if (!station.address || !isString(station.address)) {
+    return false;
+  }
+  return true;
+}; 
+
+const validateJourney = (journey: BaseJourney, stationIds: number[]) => {
+
+  if (!journey.departureStationId || isNaN(journey.departureStationId)
+  || !stationIds.includes(journey.departureStationId) ) {
+    return false;
+  }
+  if (!journey.departureStationName || !isString(journey.departureStationName)) {
+    return false;
+  }
+  if (!journey.returnStationId || isNaN(journey.returnStationId)
+  || !stationIds.includes(journey.returnStationId) ){
+    return false;
+  }
+  if (!journey.returnStationName || !isString(journey.returnStationName)) {
+    return false;
+  }
+  if (journey.distanceCovered < 10 || isNaN(journey.distanceCovered)) {
+    return false;
+  }
+  if (journey.duration < 10 || isNaN(journey.duration)) {
+    return false;
+  }
+  return true;
+};
 const isString = (text: unknown): text is string => {
   return typeof text === 'string' || text instanceof String;
 };

@@ -3,8 +3,7 @@ import journeyRouter from './routes/journeys';
 import stationRouter from './routes/stations';
 import cors from 'cors';
 
-import { connectToDB, populateDatabase } from './util/db';
-
+import { connectToDB,} from './util/db';
 const app = express();
 
 // eslint-disable-next-line @typescript-eslint/no-unsafe-call
@@ -23,7 +22,6 @@ app.use('/api/stations', stationRouter);
 
 const start = async () => {
   await connectToDB();
-  await populateDatabase();
   app.listen(PORT, () => {
     console.log(`Server launched on port ${PORT}`);
   });

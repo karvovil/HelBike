@@ -1,47 +1,31 @@
 import express from 'express';
-import { Journey, Station } from '../models';
-import { sequelize } from '../util/db';
+import {  Station } from '../models';
 
 const router = express.Router();
   
 router.get('/', (_req, res) => {
 
   Station.findAll().then( (stations) => {
+    console.log('getting stations from DB');
+    
     res.send(stations);
   }).catch( err => console.error(err));
 });
 
-router.get('/:id', (req, res) => {
+// eslint-disable-next-line @typescript-eslint/no-misused-promises
+router.get('/:id', async (req, res) => {
 
-  Station.findOne({
-    where: {id: req.params.id},
-    attributes: { 
-      include: [
-        [sequelize.fn("COUNT", sequelize.fn('DISTINCT', sequelize.col('departingJourneys.id'))), "departingTotal" ],
-        [sequelize.fn("COUNT", sequelize.fn('DISTINCT', sequelize.col('returningJourneys.id'))), "returningTotal"]
-      ] 
-    },
-    include: [
-      {
-        model: Journey,
-        as: 'departingJourneys',
-        attributes: [],
-      },
-      {
-        model: Journey,
-        as: 'returningJourneys',
-        attributes: [],
-      }
-    ],
-  })
-    .then( (station) => {
-      if (!station){
-        res.status(404).send('Sorry, cant find that ');
-      }else{
-        console.log(station);
-        
-        res.json(station);
-      }
-    }).catch( err => console.error(err));
+  try {
+    const station = await Station.findByPk(req.params.id);
+    if (!station){
+      res.status(404).send('Sorry, cant find that ');
+    }else{
+      const departingTotal = await station.countDepartingJourneys();
+      const returningTotal = await station.countReturningJourneys();
+      res.send({...station.toJSON(), departingTotal, returningTotal});
+    }
+  } catch (err) {
+    console.log(err);
+  }
 });
 export default router;

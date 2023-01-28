@@ -1,4 +1,4 @@
-import { Model, DataTypes, InferAttributes, InferCreationAttributes, NonAttribute } from 'sequelize';
+import { Model, DataTypes, InferAttributes, InferCreationAttributes, NonAttribute, HasManyCountAssociationsMixin } from 'sequelize';
 import { sequelize } from '../util/db';
 
 class Station extends Model
@@ -8,6 +8,8 @@ class Station extends Model
   declare address: string;
   declare departingTotal?: NonAttribute<number>;
   declare returningTotal?: NonAttribute<number>;
+  declare countDepartingJourneys: HasManyCountAssociationsMixin;
+  declare countReturningJourneys: HasManyCountAssociationsMixin;
 }
 
 Station.init({

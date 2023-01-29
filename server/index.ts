@@ -1,29 +1,6 @@
-import express from 'express';
-import journeyRouter from './routes/journeys';
-import stationRouter from './routes/stations';
-import cors from 'cors';
+import app from './app';
+import {PORT} from './util/config';
 
-import { connectToDB,} from './util/db';
-const app = express();
-
-// eslint-disable-next-line @typescript-eslint/no-unsafe-call
-app.use(cors());
-app.use(express.json());
-
-const PORT = 3001;
-
-app.get('/hello', (_req, res) => {
-  console.log('someone visited');
-  res.send('world');
+app.listen(PORT, () => {
+  console.log(`Server launched on port ${PORT}`);
 });
-
-app.use('/api/journeys', journeyRouter);
-app.use('/api/stations', stationRouter);
-
-const start = async () => {
-  await connectToDB();
-  app.listen(PORT, () => {
-    console.log(`Server launched on port ${PORT}`);
-  });
-};
-void start();

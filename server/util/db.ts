@@ -2,6 +2,7 @@ import { Sequelize } from 'sequelize';
 import { parseJourneys, parseStations } from '../files/parser';
 import { Journey, Station } from '../models';
 import * as fs from "fs";
+import { DBPATH } from './config';
 
 export const sequelize = new Sequelize(
   'bikeJourneyDB',
@@ -9,12 +10,12 @@ export const sequelize = new Sequelize(
   'testPass',
   {
     dialect: 'sqlite',
-    storage: "./db/database.sqlite",
+    storage: DBPATH,
     logging: false,
   });
 
 export const connectToDB = async () => {
-  const dbExists = fs.existsSync('./db/database.sqlite');
+  const dbExists = fs.existsSync(DBPATH);
   console.log(dbExists);
   
   try {

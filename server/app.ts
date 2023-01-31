@@ -9,11 +9,10 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-connectToDB().then( () => {  
-  app.use('/api/journeys', journeyRouter);
-  app.use('/api/stations', stationRouter);
-}).catch(
-  err => console.log(err)
-);
+app.use('/api/stations', stationRouter);
+app.use('/api/journeys', journeyRouter);
+async () => {  
+  await connectToDB();
+};
 
 export default app;

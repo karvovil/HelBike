@@ -1,34 +1,34 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import { BaseStation } from "../types";
 
-const SingleStation = () => {
+interface SingleStationProps {stations: BaseStation[] }
+
+const SingleStation = ({stations}: SingleStationProps) => {
 
   const { id } = useParams();
-  const [name, setName] = useState<string>("");
-  const [address, setAddress] = useState<string>("");
-  const [startTotal, setStartTotal] = useState<number>(0);
-  const [endTotal, setEndTotal] = useState<number>(0);
+  const [startTotal, setStartTotal] = useState<string>('...loading');
+  const [endTotal, setEndTotal] = useState<string>('...loading');
+  const station = stations.find(s => s.id.toString() == id)
   
   useEffect(() => {
     axios
       .get(`http://localhost:3001/api/stations/${id}`)
       .then(response => {
-        setName(response.data.name)
-        setAddress(response.data.address)
-        setStartTotal(response.data.departingTotal)
-        setEndTotal(response.data.returningTotal)
+        setStartTotal(response.data.departingTotal.toString())
+        setEndTotal(response.data.returningTotal.toString())
       })
   }, [])
   
-  if (!name) {return null}
+  if (!station) {return null}
   return (
     <div style={{border: '1px solid black'}}>
       <p>
-        {name} 
+        {station.name} 
       </p>
       <p>
-        {address}
+        {station.address}
       </p>
       <p>
         Total number of journeys starting from the station: {startTotal}

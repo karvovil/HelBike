@@ -1,6 +1,6 @@
 import {BaseJourney, BaseStation} from "./types";
 import {Routes, Route, Link} from "react-router-dom"
-import Journeys from "./components/Journeys";
+import JourneyList from "./components/JourneyList";
 import SingleStation from "./components/SingleStation";
 import axios from "axios";
 import { useEffect, useState } from "react";
@@ -39,7 +39,7 @@ const App = () => {
       </div>
 
       <Routes>  
-        <Route path="/journeys" element={<Journeys journeys={journeys} />} />
+        <Route path="/journeys" element={<JourneyList journeys={journeys} />} />
         <Route path="/stations" element={<StationList stations={stations}/>} />
         <Route path="/stations/:id" element={<SingleStation stations={stations} />} />
       </Routes>

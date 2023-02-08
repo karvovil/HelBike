@@ -13,7 +13,7 @@ const App = () => {
 
   useEffect(() => {
     axios
-      .get('http://localhost:3001/api/journeys')
+      .get('/api/journeys')
       .then(response => {
         setJourneys(response.data)
       })
@@ -21,7 +21,7 @@ const App = () => {
 
   useEffect(() => {
     axios
-      .get('http://localhost:3001/api/stations')
+      .get('/api/stations')
       .then(response => {
         setStations(response.data)
       })

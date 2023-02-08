@@ -14,7 +14,7 @@ const SingleStation = ({stations}: SingleStationProps) => {
   
   useEffect(() => {
     axios
-      .get(`http://localhost:3001/api/stations/${id}`)
+      .get(`/api/stations/${id}`)
       .then(response => {
         setStartTotal(response.data.departingTotal.toString())
         setEndTotal(response.data.returningTotal.toString())

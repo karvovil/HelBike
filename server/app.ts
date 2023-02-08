@@ -5,9 +5,10 @@ import cors from 'cors';
 import { connectToDB } from './util/db';
 
 const app = express();
-// eslint-disable-next-line @typescript-eslint/no-unsafe-call
+
 app.use(cors());
 app.use(express.json());
+app.use(express.static('build'));
 
 app.use('/api/stations', stationRouter);
 app.use('/api/journeys', journeyRouter);

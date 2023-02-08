@@ -1,4 +1,6 @@
 Helsinki city bike app for Dev Academy pre-assignment as described in detail at https://github.com/solita/dev-academy-2023-exercise
+Now deployed at https://hel-bike.fly.dev/
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).

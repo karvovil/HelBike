@@ -1,5 +1,5 @@
 import { Sequelize } from 'sequelize';
-import { parseJourneys, parseStations } from '../files/parser';
+import { parseJourneys, parseStations } from './parser';
 import { Journey, Station } from '../models';
 import * as fs from "fs";
 import { DBPATH } from './config';

@@ -3,10 +3,18 @@ import { Journey } from '../models';
 
 const router = express.Router();
 
-router.get('/', (_req, res) => {
-  Journey.findAll({ limit: 100 }).then( journeys => {
-    res.send(journeys);
-  }).catch(err => console.error(err));
+// eslint-disable-next-line @typescript-eslint/no-misused-promises
+router.get('/', async (req, res) => {
+  try {
+    const { count, rows } = await Journey.findAndCountAll({
+      offset: Number(req.query.currentPage) * 100,
+      limit: 100
+    });
+    res.send({count, rows});
+
+  } catch (err) {
+    console.log(err);
+  }  
 });
 
 export default router;

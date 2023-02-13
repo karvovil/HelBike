@@ -5,7 +5,13 @@ import JourneyList from './JourneyList';
 
 test('renders every journeys station names', () => {
 
-  render(<JourneyList journeys={testJourneys} />);
+  render(<JourneyList
+    journeys={testJourneys}
+    currentPage={1}
+    pageLimit={100}
+    onPreviousPageClick={()=>({})}
+    onNextPageClick={()=>({})}
+  />);
 
   const elements =
    testJourneys.map(j => screen.getByText(

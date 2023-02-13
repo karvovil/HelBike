@@ -10,14 +10,17 @@ const App = () => {
 
   const [journeys, setJourneys] = useState<BaseJourney[]>([])
   const [stations, setStations] = useState<BaseStation[]>([])
+  const [currentPage, setCurrentPage] = useState(1)
+  const [pageLimit, setPageLimit] = useState(1)
 
   useEffect(() => {
     axios
-      .get('/api/journeys')
+      .get(`/api/journeys?currentPage=${currentPage}`)
       .then(response => {
-        setJourneys(response.data)
+        setPageLimit(Math.floor(response.data.count/100))
+        setJourneys(response.data.rows)
       })
-  }, [])
+  }, [currentPage])
 
   useEffect(() => {
     axios
@@ -26,6 +29,9 @@ const App = () => {
         setStations(response.data)
       })
   }, [])
+
+  const handlepreviousPageClick = () => setCurrentPage(currentPage - 1)
+  const handleNextPageClick = () =>  setCurrentPage(currentPage + 1)
 
   return (
     <div>
@@ -39,7 +45,16 @@ const App = () => {
       </div>
 
       <Routes>  
-        <Route path="/journeys" element={<JourneyList journeys={journeys} />} />
+        <Route 
+          path="/journeys"
+          element={<JourneyList 
+            journeys={journeys}
+            pageLimit={pageLimit}
+            currentPage={currentPage}
+            onPreviousPageClick={handlepreviousPageClick}
+            onNextPageClick={handleNextPageClick}
+          />}
+        />
         <Route path="/stations" element={<StationList stations={stations}/>} />
         <Route path="/stations/:id" element={<SingleStation stations={stations} />} />
       </Routes>

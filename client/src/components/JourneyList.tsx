@@ -1,5 +1,12 @@
 import { BaseJourney } from "../types"
 import Journey from "./Journey"
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell from '@mui/material/TableCell';
+import TableContainer from '@mui/material/TableContainer';
+import TableHead from '@mui/material/TableHead';
+import TableRow from '@mui/material/TableRow';
+import Paper from '@mui/material/Paper';
 interface JourneyListProps {
   journeys: BaseJourney[],
   currentPage: number,
@@ -15,9 +22,9 @@ const JourneyList = (
   : JourneyListProps) => {
     
   return(
-    <div>
+    <><div>
 
-      <button 
+      <button
         onClick={onPreviousPageClick}
         disabled={currentPage < 2}
       >
@@ -31,24 +38,37 @@ const JourneyList = (
       </button>
 
 
-      <button onClick={() => onHandleSortClick('distanceCovered')}>
-        Sort by distance
-      </button>
-      <button onClick={() => onHandleSortClick('duration')}>
-        Sort by duration
-      </button>
-      <button onClick={() => onHandleSortClick('departureStationName')}>
-        Sort by departure station name
-      </button>
-      <button onClick={() => onHandleSortClick('returnStationName')}>
-        Sort by return station name
-      </button>
 
-      {journeys.map( j => <Journey 
-        key={j.id} 
-        journey={j}/> )}
 
     </div>
+    <TableContainer component={Paper}>
+      <Table sx={{ minWidth: 650 }} size="small" aria-label="a dense table">
+
+        <TableHead>
+          <TableRow>
+            <TableCell onClick={() => onHandleSortClick('departureStationName')}>Departure station name</TableCell>
+
+            <TableCell
+              align="right"
+              onClick={() => onHandleSortClick('returnStationName')}
+            >
+              Return station name
+            </TableCell>
+
+            <TableCell align="right" onClick={() => onHandleSortClick('distanceCovered')}>Distance covered</TableCell>
+            <TableCell align="right" onClick={() => onHandleSortClick('duration')}>Duration</TableCell>
+          </TableRow>
+        </TableHead>
+
+        <TableBody>
+          {journeys.map(j => <Journey
+            key={j.id}
+            journey={j} />)}
+        </TableBody>
+
+      </Table>
+    </TableContainer></>
+    
   );
 }
 export default JourneyList

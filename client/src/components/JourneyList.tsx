@@ -6,14 +6,14 @@ interface JourneyListProps {
   pageLimit: number,
   onPreviousPageClick: React.MouseEventHandler<HTMLButtonElement>,
   onNextPageClick: React.MouseEventHandler<HTMLButtonElement>
+  onHandleSortClick: (orderString: string) => void
 }
 
 const JourneyList = (
-  {journeys, currentPage, pageLimit, onPreviousPageClick, onNextPageClick}
+  {journeys, currentPage, pageLimit,//TODO don't allow increasing page number beyond this
+    onPreviousPageClick, onNextPageClick, onHandleSortClick}
   : JourneyListProps) => {
     
-  console.log(pageLimit)
-
   return(
     <div>
 
@@ -28,6 +28,20 @@ const JourneyList = (
 
       <button onClick={onNextPageClick}>
         Next Page
+      </button>
+
+
+      <button onClick={() => onHandleSortClick('distanceCovered')}>
+        Sort by distance
+      </button>
+      <button onClick={() => onHandleSortClick('duration')}>
+        Sort by duration
+      </button>
+      <button onClick={() => onHandleSortClick('departureStationName')}>
+        Sort by departure station name
+      </button>
+      <button onClick={() => onHandleSortClick('returnStationName')}>
+        Sort by return station name
       </button>
 
       {journeys.map( j => <Journey 

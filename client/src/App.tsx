@@ -8,19 +8,21 @@ import StationList from "./components/StationList";
 
 const App = () => {
 
-  const [journeys, setJourneys] = useState<BaseJourney[]>([])
   const [stations, setStations] = useState<BaseStation[]>([])
+
+  const [journeys, setJourneys] = useState<BaseJourney[]>([])
   const [currentPage, setCurrentPage] = useState(1)
+  const [orderBy, setOrderBy] = useState('id')
   const [pageLimit, setPageLimit] = useState(1)
 
   useEffect(() => {
     axios
-      .get(`/api/journeys?currentPage=${currentPage}`)
+      .get(`/api/journeys?currentPage=${currentPage}&orderBy=${orderBy}`)
       .then(response => {
         setPageLimit(Math.floor(response.data.count/100))
         setJourneys(response.data.rows)
       })
-  }, [currentPage])
+  }, [currentPage, orderBy])
 
   useEffect(() => {
     axios
@@ -32,6 +34,7 @@ const App = () => {
 
   const handlepreviousPageClick = () => setCurrentPage(currentPage - 1)
   const handleNextPageClick = () =>  setCurrentPage(currentPage + 1)
+  const handleSortClick = (orderString: string) =>  setOrderBy(orderString)
 
   return (
     <div>
@@ -53,6 +56,7 @@ const App = () => {
             currentPage={currentPage}
             onPreviousPageClick={handlepreviousPageClick}
             onNextPageClick={handleNextPageClick}
+            onHandleSortClick={handleSortClick}
           />}
         />
         <Route path="/stations" element={<StationList stations={stations}/>} />

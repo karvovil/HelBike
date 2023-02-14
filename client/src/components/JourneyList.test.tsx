@@ -11,6 +11,7 @@ test('renders every journeys station names', () => {
     pageLimit={100}
     onPreviousPageClick={()=>({})}
     onNextPageClick={()=>({})}
+    onHandleSortClick={()=>({})}
   />);
 
   const elements =

@@ -5,9 +5,8 @@ const router = express.Router();
   
 router.get('/', (_req, res) => {
 
+  console.log('getting stations from DB');
   Station.findAll().then( (stations) => {
-    console.log('getting stations from DB');
-    
     res.send(stations);
   }).catch( err => console.error(err));
 });

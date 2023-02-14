@@ -41,3 +41,4 @@ export interface CSVJourney {
   "Covered distance (m)":   number
   "Duration (sec.)":        number
 }
+export type Order = 'asc' | 'desc';

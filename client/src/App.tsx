@@ -1,4 +1,4 @@
-import {BaseJourney, BaseStation} from "./types";
+import {BaseJourney, BaseStation, Order} from "./types";
 import {Routes, Route, Link} from "react-router-dom"
 import JourneyList from "./components/JourneyList";
 import SingleStation from "./components/SingleStation";
@@ -12,17 +12,18 @@ const App = () => {
 
   const [journeys, setJourneys] = useState<BaseJourney[]>([])
   const [currentPage, setCurrentPage] = useState(1)
-  const [orderBy, setOrderBy] = useState('id')
+  const [orderBy, setOrderBy] = useState('distanceCovered')
+  const [order, setOrder] = useState<Order>('asc')
   const [pageLimit, setPageLimit] = useState(1)
 
   useEffect(() => {
     axios
-      .get(`/api/journeys?currentPage=${currentPage}&orderBy=${orderBy}`)
+      .get(`/api/journeys?currentPage=${currentPage}&orderBy=${orderBy}&order=${order}`)
       .then(response => {
         setPageLimit(Math.floor(response.data.count/100))
         setJourneys(response.data.rows)
       })
-  }, [currentPage, orderBy])
+  }, [currentPage, orderBy, order])
 
   useEffect(() => {
     axios
@@ -34,7 +35,15 @@ const App = () => {
 
   const handlepreviousPageClick = () => setCurrentPage(currentPage - 1)
   const handleNextPageClick = () =>  setCurrentPage(currentPage + 1)
-  const handleSortClick = (orderString: string) =>  setOrderBy(orderString)
+
+  const handleSortClick = (orderAttribute: string) =>  {
+    if (orderBy === orderAttribute){
+      order === 'asc' ? setOrder('desc') : setOrder('asc')
+    } else {
+      setOrderBy(orderAttribute)
+      setOrder('asc')
+    }
+  }
 
   return (
     <div>
@@ -53,6 +62,8 @@ const App = () => {
           element={<JourneyList 
             journeys={journeys}
             pageLimit={pageLimit}
+            orderBy={orderBy}
+            order={order}
             currentPage={currentPage}
             onPreviousPageClick={handlepreviousPageClick}
             onNextPageClick={handleNextPageClick}

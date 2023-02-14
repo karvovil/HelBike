@@ -6,11 +6,11 @@ const router = express.Router();
 // eslint-disable-next-line @typescript-eslint/no-misused-promises
 router.get('/', async (req, res) => {
   console.log('getting journeys from DB');
-  try {
+  try {//TODO validate query params
     const { count, rows } = await Journey.findAndCountAll({
       offset: Number(req.query.currentPage) * 100,
       limit: 100,
-      order: [[String(req.query.orderBy), 'DESC']]
+      order: [[String(req.query.orderBy), String(req.query.order)]]
     });
     res.send({count, rows});
 

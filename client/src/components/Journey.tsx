@@ -6,13 +6,17 @@ interface JourneyProps {journey: BaseJourney}
 
 const Journey = ({journey}: JourneyProps) => {
   return (
-    <TableRow key={journey.id}>
+    <TableRow
+      key={journey.id}
+    >
+
       <TableCell component="th" scope="row">
         {journey.departureStationName}
       </TableCell>
-      <TableCell align="right">{journey.returnStationName}</TableCell>
-      <TableCell align="right">{journey.distanceCovered}</TableCell>
-      <TableCell align="right">{journey.duration}</TableCell>
+      <TableCell align="right" >{journey.returnStationName}</TableCell>
+      <TableCell align="right" >{journey.distanceCovered}</TableCell>
+      <TableCell align="right" >{journey.duration}</TableCell>
+
     </TableRow>
 
   );

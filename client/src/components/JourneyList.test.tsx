@@ -9,6 +9,8 @@ test('renders every journeys station names', () => {
     journeys={testJourneys}
     currentPage={1}
     pageLimit={100}
+    orderBy={'id'}
+    order={'desc'}
     onPreviousPageClick={()=>({})}
     onNextPageClick={()=>({})}
     onHandleSortClick={()=>({})}

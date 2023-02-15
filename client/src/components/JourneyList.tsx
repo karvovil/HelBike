@@ -8,8 +8,6 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import TableSortLabel from "@mui/material/TableSortLabel";
-import Box from "@mui/material/Box";
-import { visuallyHidden } from '@mui/utils';
 interface JourneyListProps {
   journeys: BaseJourney[],
   currentPage: number,
@@ -63,14 +61,16 @@ const JourneyList = (
               {headCells.map((hc) => (
                 <TableCell
                   key={hc.id}
-                  align={hc.id === 'departureStationName' ? 'inherit' : 'right'}
+                  align={hc.id === 'departureStationName'
+                    || hc.id === 'returnStationName' 
+                    ? 'inherit' : 'right'}
                 >
                   <TableSortLabel
                     active={orderBy === hc.id}
                     onClick={() => onHandleSortClick(hc.id)}
                     direction={orderBy === hc.id ? order : 'asc'}
                   >
-                    {hc.label}
+                    <b>{hc.label}</b>
                   </TableSortLabel>
 
                 </TableCell>

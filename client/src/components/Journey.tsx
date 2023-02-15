@@ -13,7 +13,7 @@ const Journey = ({journey}: JourneyProps) => {
       <TableCell component="th" scope="row">
         {journey.departureStationName}
       </TableCell>
-      <TableCell align="right" >{journey.returnStationName}</TableCell>
+      <TableCell >{journey.returnStationName}</TableCell>
       <TableCell align="right" >{journey.distanceCovered}</TableCell>
       <TableCell align="right" >{journey.duration}</TableCell>
 

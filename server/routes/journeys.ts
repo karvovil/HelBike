@@ -10,7 +10,7 @@ router.get('/', async (req, res) => {
     const { count, rows } = await Journey.findAndCountAll({
       offset: Number(req.query.currentPage) * 100,
       limit: 100,
-      order: [[String(req.query.orderBy), String(req.query.order)]]
+      order: [[String(req.query.orderBy), String(req.query.orderDirection)]]
     });
     res.send({count, rows});
 

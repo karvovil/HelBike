@@ -1,4 +1,4 @@
-import {BaseJourney} from "../types";
+import {BaseJourney} from "../../types";
 import TableCell from '@mui/material/TableCell';
 import TableRow from '@mui/material/TableRow';
 

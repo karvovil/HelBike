@@ -1,7 +1,7 @@
 import '@testing-library/jest-dom/extend-expect'
 import { render, screen } from '@testing-library/react'
-import { testJourneys } from '../util/testData';
-import JourneyList from './JourneyList';
+import { testJourneys } from '../../util/testData';
+import JourneyList from '.';
 
 test('renders every journeys station names', () => {
 
@@ -10,7 +10,7 @@ test('renders every journeys station names', () => {
     currentPage={1}
     pageLimit={100}
     orderBy={'id'}
-    order={'desc'}
+    orderDirection={'desc'}
     onPreviousPageClick={()=>({})}
     onNextPageClick={()=>({})}
     onHandleSortClick={()=>({})}

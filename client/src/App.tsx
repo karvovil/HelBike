@@ -13,17 +13,17 @@ const App = () => {
   const [journeys, setJourneys] = useState<BaseJourney[]>([])
   const [currentPage, setCurrentPage] = useState(1)
   const [orderBy, setOrderBy] = useState('distanceCovered')
-  const [order, setOrder] = useState<Order>('asc')
+  const [orderDirection, setOrder] = useState<Order>('asc')
   const [pageLimit, setPageLimit] = useState(1)
 
   useEffect(() => {
     axios
-      .get(`/api/journeys?currentPage=${currentPage}&orderBy=${orderBy}&order=${order}`)
+      .get(`/api/journeys?currentPage=${currentPage}&orderBy=${orderBy}&orderDirection=${orderDirection}`)
       .then(response => {
         setPageLimit(Math.floor(response.data.count/100))
         setJourneys(response.data.rows)
       })
-  }, [currentPage, orderBy, order])
+  }, [currentPage, orderBy, orderDirection])
 
   useEffect(() => {
     axios
@@ -38,7 +38,7 @@ const App = () => {
 
   const handleSortClick = (orderAttribute: string) =>  {
     if (orderBy === orderAttribute){
-      order === 'asc' ? setOrder('desc') : setOrder('asc')
+      orderDirection === 'asc' ? setOrder('desc') : setOrder('asc')
     } else {
       setOrderBy(orderAttribute)
       setOrder('asc')
@@ -63,7 +63,7 @@ const App = () => {
             journeys={journeys}
             pageLimit={pageLimit}
             orderBy={orderBy}
-            order={order}
+            orderDirection={orderDirection}
             currentPage={currentPage}
             onPreviousPageClick={handlepreviousPageClick}
             onNextPageClick={handleNextPageClick}

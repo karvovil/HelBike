@@ -1,10 +1,11 @@
 import {BaseJourney, BaseStation, Order} from "./types";
-import {Routes, Route, Link} from "react-router-dom"
+import {Routes, Route } from "react-router-dom"
 import JourneyList from "./components/JourneyList";
 import SingleStation from "./components/SingleStation";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import StationList from "./components/StationList";
+import NavigationBar from "./components/NavigationBar";
 
 const App = () => {
 
@@ -47,10 +48,8 @@ const App = () => {
 
   return (
     <div>
-      <div>
-        <Link to="/journeys">journeys</Link>
-        <Link to="/stations">stations</Link>
-      </div>
+
+      <NavigationBar/>
 
       <div>
         <h1> Helsinki City Bike App</h1>

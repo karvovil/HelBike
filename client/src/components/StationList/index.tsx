@@ -1,6 +1,6 @@
 import { useState } from "react"
 import { Link } from "react-router-dom"
-import { BaseStation } from "../types"
+import { BaseStation } from "../../types"
 import Filter from "./Filter"
 
 interface StationListProps {stations: BaseStation[] }

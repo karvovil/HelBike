@@ -1,8 +1,8 @@
 import '@testing-library/jest-dom/extend-expect'
 import { render, screen } from '@testing-library/react'
-import StationList from './StationList'
+import StationList from '../StationList'
 import { BrowserRouter } from 'react-router-dom';
-import { testStations } from '../util/testData';
+import { testStations } from '../../util/testData';
 
 test('renders first stations name', () => {
 

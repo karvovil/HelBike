@@ -6,6 +6,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import StationList from "./components/StationList";
 import NavigationBar from "./components/NavigationBar";
+import { Box, Typography } from "@mui/material";
 
 const App = () => {
 
@@ -47,13 +48,9 @@ const App = () => {
   }
 
   return (
-    <div>
+    <Box sx={{ margin: 'auto', width: '50%', backgroundColor: 'white' }}>
 
       <NavigationBar/>
-
-      <div>
-        <h1> Helsinki City Bike App</h1>
-      </div>
 
       <Routes>  
         <Route 
@@ -73,7 +70,7 @@ const App = () => {
         <Route path="/stations/:id" element={<SingleStation stations={stations} />} />
       </Routes>
 
-    </div>
+    </Box>
   );
 }
 

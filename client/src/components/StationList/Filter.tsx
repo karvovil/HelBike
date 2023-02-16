@@ -8,13 +8,13 @@ interface FilterProps {
 
 const Filter = ({filter, handleFilterChange}: FilterProps) => {
   return(
-    <Box>
-      <TextField
-        value={filter}
-        onChange={handleFilterChange}
-        label="Search"
-        variant="outlined" />
-    </Box>
+    <TextField
+      value={filter}
+      onChange={handleFilterChange}
+      label="Search Stations"
+      variant="outlined"
+      margin="normal"
+      size="small"/>
   )
 }
 export default Filter

@@ -1,3 +1,4 @@
+import { ListItemButton, ListItemText, Paper, Typography } from "@mui/material"
 import Box from "@mui/material/Box"
 import List from "@mui/material/List"
 import ListItem from "@mui/material/ListItem"
@@ -18,26 +19,26 @@ const StationList = ({stations}: StationListProps) => {
   }
 
   return(
-    <Box sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
-      <h2>Stations</h2>
+    <Box sx={{ margin: 'auto', maxWidth: 360, backgroundColor: 'white'}}>
       <Filter filter={filter} handleFilterChange={handleFilterChange}/>
-      <ul>
+      <List sx={{ }}>
+
         {stations
           .filter(s => s.name.toLowerCase().includes(filter.toLowerCase() ))
           .map( station => 
-            <List key={station.id}>
-              <ListItem disablePadding component="a" href={`/stations/${station.id}`}
-                sx={{
-                  mr: 2,
-                  fontWeight: 700,
-                  color: 'inherit',
-                  textDecoration: 'none',
-                }} >
-                {station.name}
-              </ListItem>
-            </List>
+            <ListItem dense={true}key={station.id} disablePadding
+              sx={{
+                mr: 2,
+                color: 'inherit',
+                textDecoration: 'none',
+              }} >
+              <ListItemButton component="a" href={`/stations/${station.id}`}>
+                <ListItemText primary={station.name} />
+              </ListItemButton>
+            </ListItem>
           )}
-      </ul>
+
+      </List>
     </Box>
   )}
 export default StationList

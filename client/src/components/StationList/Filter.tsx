@@ -1,3 +1,6 @@
+import { Box } from "@mui/material"
+import TextField from "@mui/material/TextField"
+
 interface FilterProps {
     filter: string,
     handleFilterChange: React.ChangeEventHandler<HTMLInputElement>
@@ -5,10 +8,13 @@ interface FilterProps {
 
 const Filter = ({filter, handleFilterChange}: FilterProps) => {
   return(
-    <div>
-        find Stations: 
-      <input  value={filter} onChange={handleFilterChange}/>
-    </div>
+    <Box>
+      <TextField
+        value={filter}
+        onChange={handleFilterChange}
+        label="Search"
+        variant="outlined" />
+    </Box>
   )
 }
 export default Filter

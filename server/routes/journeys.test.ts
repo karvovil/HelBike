@@ -3,6 +3,8 @@ import app from '../app';
 import { Journey } from '../models';
 
 const api = supertest(app);
+const queryparameters = '?currentPage=0&orderBy=id&orderDirection=asc&rowsPerPage=100';
+
 const firstJourney = {
   id:                   1,
   departureStationId:   94,
@@ -16,26 +18,29 @@ const firstJourney = {
 
 test('journeys are returned as json', async () => {
   await api
-    .get('/api/journeys')
+    .get(`/api/journeys${queryparameters}`)
     .expect(200)
     .expect('Content-Type', /application\/json/);
 });
 
 test('100 journeys are returned', async () => {
-  const response = await api.get('/api/journeys');
+  const response = await api
+    .get(`/api/journeys${queryparameters}`);
 
-  expect(response.body).toHaveLength(100);
+  expect(response.body.rows).toHaveLength(100);
 });
 
 test('right type of data is returned', async () => {
-  const response = await api.get('/api/journeys');
+  const response = await api
+    .get(`/api/journeys${queryparameters}`);
 
-  expect(response.body).toBeInstanceOf(Array<Journey>);
+  expect(response.body.rows).toBeInstanceOf(Array<Journey>);
 });
-
+  
 test('first journey from db is returned with results', async () => {
-  const response = await api.get('/api/journeys');
-  const journeys = response.body as Journey[];
+  const response = await api
+    .get(`/api/journeys${queryparameters}`);
+  const journeys = response.body.rows as Journey[];
   expect(journeys).toContainEqual(firstJourney);
 });
 

@@ -7,13 +7,14 @@ test('renders every journeys station names', () => {
 
   render(<JourneyList
     journeys={testJourneys}
+    rowCount={200}
+    rowsPerPage={50}
     currentPage={1}
-    pageLimit={100}
     orderBy={'id'}
     orderDirection={'desc'}
-    onPreviousPageClick={()=>({})}
-    onNextPageClick={()=>({})}
+    onPageChange={()=>({})}
     onHandleSortClick={()=>({})}
+    onRowsPerPageChange={()=>({})}
   />);
 
   const elements =

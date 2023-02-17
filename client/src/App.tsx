@@ -6,26 +6,27 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import StationList from "./components/StationList";
 import NavigationBar from "./components/NavigationBar";
-import { Box, Typography } from "@mui/material";
+import { Box } from "@mui/material";
 
 const App = () => {
 
   const [stations, setStations] = useState<BaseStation[]>([])
 
   const [journeys, setJourneys] = useState<BaseJourney[]>([])
-  const [currentPage, setCurrentPage] = useState(1)
+  const [currentPage, setCurrentPage] = useState(0)
   const [orderBy, setOrderBy] = useState('distanceCovered')
   const [orderDirection, setOrder] = useState<Order>('asc')
-  const [pageLimit, setPageLimit] = useState(1)
+  const [rowCount, setrowCount] = useState(0)
+  const [rowsPerPage, setRowsPerPage] = useState(50);
 
   useEffect(() => {
     axios
-      .get(`/api/journeys?currentPage=${currentPage}&orderBy=${orderBy}&orderDirection=${orderDirection}`)
+      .get(`/api/journeys?currentPage=${currentPage}&orderBy=${orderBy}&orderDirection=${orderDirection}&rowsPerPage=${rowsPerPage}`)
       .then(response => {
-        setPageLimit(Math.floor(response.data.count/100))
+        setrowCount(response.data.count)
         setJourneys(response.data.rows)
       })
-  }, [currentPage, orderBy, orderDirection])
+  }, [currentPage, orderBy, orderDirection, rowsPerPage])
 
   useEffect(() => {
     axios
@@ -35,8 +36,10 @@ const App = () => {
       })
   }, [])
 
-  const handlepreviousPageClick = () => setCurrentPage(currentPage - 1)
-  const handleNextPageClick = () =>  setCurrentPage(currentPage + 1)
+  const handlePageChange = (
+    event: React.MouseEvent<HTMLButtonElement> | null,
+    newPage: number,
+  ) => setCurrentPage(newPage)
 
   const handleSortClick = (orderAttribute: string) =>  {
     if (orderBy === orderAttribute){
@@ -46,6 +49,12 @@ const App = () => {
       setOrder('asc')
     }
   }
+  const handleChangeRowsPerPage = (
+    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+  ) => {
+    setRowsPerPage(parseInt(event.target.value));
+    setCurrentPage(0);
+  };
 
   return (
     <Box sx={{ margin: 'auto', width: '50%', backgroundColor: 'white' }}>
@@ -57,12 +66,13 @@ const App = () => {
           path="/journeys"
           element={<JourneyList 
             journeys={journeys}
-            pageLimit={pageLimit}
+            rowCount={rowCount}
             orderBy={orderBy}
             orderDirection={orderDirection}
             currentPage={currentPage}
-            onPreviousPageClick={handlepreviousPageClick}
-            onNextPageClick={handleNextPageClick}
+            rowsPerPage={rowsPerPage}
+            onPageChange={handlePageChange}
+            onRowsPerPageChange={handleChangeRowsPerPage}
             onHandleSortClick={handleSortClick}
           />}
         />

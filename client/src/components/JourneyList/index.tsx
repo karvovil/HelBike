@@ -5,34 +5,34 @@ import TableBody from '@mui/material/TableBody';
 import TableContainer from '@mui/material/TableContainer';
 import Paper from '@mui/material/Paper';
 import JourneyHeaders from "./JourneyListHeaders";
-import Pagination from "./Pagination";
+import { TableFooter, TableRow, TablePagination } from "@mui/material";
+import TablePaginationActions from "@mui/material/TablePagination/TablePaginationActions";
 
 interface JourneyListProps {
   journeys: BaseJourney[]
   currentPage: number
-  pageLimit: number
+  rowCount: number
   orderBy: string
   orderDirection: Order
-  onPreviousPageClick: React.MouseEventHandler<HTMLButtonElement>
-  onNextPageClick: React.MouseEventHandler<HTMLButtonElement>
+  rowsPerPage: number
+  onPageChange: (
+    event: React.MouseEvent<HTMLButtonElement> | null,
+    newPage: number,
+  ) => void
+  onRowsPerPageChange: (
+    event: React.ChangeEvent<HTMLInputElement>
+    ) => void
   onHandleSortClick: (orderString: string) => void
 }
 
 const JourneyList = (
-  {journeys, currentPage, pageLimit, orderBy, orderDirection,
-    //TODO don't allow increasing page number beyond this
-    onPreviousPageClick, onNextPageClick, onHandleSortClick}
+  {journeys, rowCount, orderBy, orderDirection, currentPage, rowsPerPage,
+    onPageChange, onRowsPerPageChange, onHandleSortClick}
   : JourneyListProps) => {
     
   return(
     <Paper sx={{ width: '100%', mb: 2 }}>
 
-      <Pagination 
-        currentPage={currentPage}
-        pageLimit={pageLimit}
-        onPreviousPageClick={onPreviousPageClick}
-        onNextPageClick={onNextPageClick}
-      />
       <TableContainer >
         <Table 
           sx={{ minWidth: 500 }}
@@ -49,7 +49,19 @@ const JourneyList = (
               key={j.id}
               journey={j} />)}
           </TableBody>
-
+          <TableFooter>
+            <TableRow>
+              <TablePagination
+                count={rowCount}
+                page={currentPage}
+                rowsPerPage={rowsPerPage}
+                onPageChange={onPageChange}
+                ActionsComponent={TablePaginationActions}
+                rowsPerPageOptions={[50, 100, 200]}
+                onRowsPerPageChange={onRowsPerPageChange}
+              />
+            </TableRow>
+          </TableFooter>
         </Table>
       </TableContainer>
     </Paper>

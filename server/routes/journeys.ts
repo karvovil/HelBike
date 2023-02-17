@@ -9,7 +9,7 @@ router.get('/', async (req, res) => {
   try {//TODO validate query params
     const { count, rows } = await Journey.findAndCountAll({
       offset: Number(req.query.currentPage) * 100,
-      limit: 100,
+      limit: Number(req.query.rowsPerPage),
       order: [[String(req.query.orderBy), String(req.query.orderDirection)]]
     });
     res.send({count, rows});

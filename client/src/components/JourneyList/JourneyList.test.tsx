@@ -17,9 +17,15 @@ test('renders every journeys station names', () => {
     onRowsPerPageChange={()=>({})}
   />);
 
-  const elements =
-   testJourneys.map(j => screen.getByText(
-     `${j.departureStationName} to ${j.returnStationName}`
+  const departureStations =
+   testJourneys.map(j => screen.getAllByText(
+     `${j.departureStationName}`
    ));
-  elements.map(e => expect(e).toBeDefined());
+  departureStations.map(e => expect(e).toBeDefined());
+
+  const returnStations =
+   testJourneys.map(j => screen.getAllByText(
+     `${j.returnStationName}`
+   ));
+  returnStations.map(e => expect(e).toBeDefined());
 });

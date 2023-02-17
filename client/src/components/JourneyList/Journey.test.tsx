@@ -7,8 +7,13 @@ test('renders journeys station names', () => {
 
   render(<Journey journey={testJourneys[0]} />);
 
-  const element = screen.getByText(
-    `${testJourneys[0].departureStationName} to ${testJourneys[0].returnStationName}`
+  const departureStationName = screen.getByText(
+    `${testJourneys[0].departureStationName}`
   );
-  expect(element).toBeDefined();
+  expect(departureStationName).toBeDefined();
+
+  const returnStationName = screen.getByText(
+    `${testJourneys[0].returnStationName}`
+  );
+  expect(returnStationName).toBeDefined();
 });

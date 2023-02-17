@@ -32,7 +32,7 @@ const StationList = ({stations}: StationListProps) => {
                 color: 'inherit',
                 textDecoration: 'none',
               }} >
-              <ListItemButton component="a" href={`/stations/${station.id}`}>
+              <ListItemButton component={Link} to={`/stations/${station.id}`}>
                 <ListItemText primary={station.name} />
               </ListItemButton>
             </ListItem>

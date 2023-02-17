@@ -2,6 +2,7 @@ import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
+import { Link } from "react-router-dom";
 
 const menuLinks: readonly string[] = ['/stations', '/journeys']
 
@@ -26,9 +27,9 @@ export default function NavigationBar() {
 
           <Typography
             key={menuLink}
-            href={menuLink} 
+            to={menuLink} 
             variant="h6" 
-            component="a" 
+            component={Link} 
             textAlign="center"
             sx={{
               mr: 2,

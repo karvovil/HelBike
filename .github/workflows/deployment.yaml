@@ -14,6 +14,8 @@ jobs:
         with:
           node-version: '18'
       - name: npm install 
-        run: npm install  
+        run: npm install && cd ../client && npm install
+        working-directory: ./server
       - name: lint
         run: npm run eslint
+        working-directory: ./server

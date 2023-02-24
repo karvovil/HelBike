@@ -1,20 +1,12 @@
 import supertest from 'supertest';
+import { testJourneys } from '../../testData';
 import app from '../app';
 import { Journey } from '../models';
 
 const api = supertest(app);
 const queryparameters = '?currentPage=0&orderBy=id&orderDirection=asc&rowsPerPage=100';
 
-const firstJourney = {
-  id:                   1,
-  departureStationId:   94,
-  departureStationName: 'Laajalahden aukio',
-  returnStationId:      100,
-  returnStationName:    'Teljäntie',
-  distanceCovered:      2043,
-  duration:             500
-};
-//TODO replace hardcoded values
+const firstJourney = testJourneys[0];
 
 test('journeys are returned as json', async () => {
   await api
@@ -23,11 +15,11 @@ test('journeys are returned as json', async () => {
     .expect('Content-Type', /application\/json/);
 });
 
-test('100 journeys are returned', async () => {
+test('all 3 journeys are returned from test db', async () => {
   const response = await api
     .get(`/api/journeys${queryparameters}`);
 
-  expect(response.body.rows).toHaveLength(100);
+  expect(response.body.rows).toHaveLength(3);
 });
 
 test('right type of data is returned', async () => {
@@ -37,7 +29,7 @@ test('right type of data is returned', async () => {
   expect(response.body.rows).toBeInstanceOf(Array<Journey>);
 });
   
-test('first journey from db is returned with results', async () => {
+test('first journey from test db is returned with results', async () => {
   const response = await api
     .get(`/api/journeys${queryparameters}`);
   const journeys = response.body.rows as Journey[];

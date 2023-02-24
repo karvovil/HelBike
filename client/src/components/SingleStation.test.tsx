@@ -2,7 +2,7 @@ import '@testing-library/jest-dom/extend-expect'
 import { render, screen } from '@testing-library/react'
 import SingleStation from './SingleStation'
 import Router from 'react-router';
-import {testStations} from '../util/testData'
+import {testStations} from '../../../testData'
 
 jest.mock('react-router', () => ({
   ...jest.requireActual('react-router'),

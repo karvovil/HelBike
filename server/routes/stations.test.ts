@@ -1,14 +1,10 @@
 import supertest from 'supertest';
+import { testStations } from '../../testData';
 import app from '../app';
 import { Station } from '../models';
 
 const api = supertest(app);
-const firstStation = {
-  id:      1,
-  name:    'Kaivopuisto',
-  address: 'Meritori 1',
-};
-//TODO replace hardcoded values
+const firstStation = testStations[0];
 
 test('stations are returned as json', async () => {
   await api
@@ -17,10 +13,10 @@ test('stations are returned as json', async () => {
     .expect('Content-Type', /application\/json/);
 });
 
-test('all 457 stations are returned', async () => {
+test('all 4 stations are returned from test db', async () => {
   const response = await api.get('/api/stations');
 
-  expect(response.body).toHaveLength(457);
+  expect(response.body).toHaveLength(4);
 });
 
 test('right type of data is returned', async () => {
@@ -29,7 +25,7 @@ test('right type of data is returned', async () => {
   expect(response.body).toBeInstanceOf(Array<Station>);
 });
 
-test('first journey from db is returned with results', async () => {
+test('first journey from test db is returned with results', async () => {
   const response = await api.get('/api/stations');
   const stations = response.body as Station[];
   expect(stations).toContainEqual(firstStation);
@@ -58,6 +54,6 @@ test('fetches the right station ', async () => {
   const station = await api.get(`/api/stations/1`);
   expect(station.body).toEqual({
     ...firstStation,
-    departingTotal: 23800,
-    returningTotal: 24288});
+    departingTotal: 1,
+    returningTotal: 1});
 });

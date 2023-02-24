@@ -1,6 +1,6 @@
 import '@testing-library/jest-dom/extend-expect'
 import { render, screen } from '@testing-library/react'
-import { testJourneys } from '../../util/testData';
+import { testJourneys } from '../../../../testData';
 import JourneyList from '.';
 
 test('renders every journeys station names', () => {

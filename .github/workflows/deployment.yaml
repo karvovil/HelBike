@@ -37,7 +37,7 @@ jobs:
         working-directory: ./server
 
       - name: deploy app
-        run: npm run deploy
+        run: flyctl deploy --remote-only
         working-directory: ./server
         env:
           FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}

@@ -18,7 +18,7 @@ const App = () => {
   const [orderDirection, setOrder] = useState<Order>('asc')
   const [rowCount, setrowCount] = useState(0)
   const [rowsPerPage, setRowsPerPage] = useState(50);
-  console.log("this is the new version");
+  console.log("this is the new version asdasdasd");
   
   useEffect(() => {
     axios

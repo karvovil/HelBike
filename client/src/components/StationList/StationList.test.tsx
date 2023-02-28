@@ -2,7 +2,7 @@ import '@testing-library/jest-dom/extend-expect'
 import { render, screen } from '@testing-library/react'
 import StationList from '../StationList'
 import { BrowserRouter } from 'react-router-dom';
-import { testStations } from '../../../../testData';
+import { testStations } from '../../testData';
 
 test('renders first stations name', () => {
 

@@ -1,5 +1,5 @@
 import supertest from 'supertest';
-import { testStations } from '../../testData';
+import { testStations } from '../testData';
 import app from '../app';
 import { Station } from '../models';
 

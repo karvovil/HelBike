@@ -13,6 +13,8 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: '18'
+      - uses: superfly/flyctl-actions/setup-flyctl@master
+
 
       - name: npm install 
         run: npm install && cd ../client && npm install
@@ -30,6 +32,12 @@ jobs:
         run: npm run test
         working-directory: ./server
 
-      - name: build
+      - name: build server and client
         run: npm run build:ui && npm run build
         working-directory: ./server
+
+      - name: deploy app
+        run: npm run deploy
+        working-directory: ./server
+        env:
+          FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}

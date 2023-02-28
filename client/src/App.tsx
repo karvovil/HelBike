@@ -18,7 +18,8 @@ const App = () => {
   const [orderDirection, setOrder] = useState<Order>('asc')
   const [rowCount, setrowCount] = useState(0)
   const [rowsPerPage, setRowsPerPage] = useState(50);
-
+  console.log("this is the new version");
+  
   useEffect(() => {
     axios
       .get(`/api/journeys?currentPage=${currentPage}&orderBy=${orderBy}&orderDirection=${orderDirection}&rowsPerPage=${rowsPerPage}`)

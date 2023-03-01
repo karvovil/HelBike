@@ -32,6 +32,10 @@ jobs:
         run: npm run test
         working-directory: ./server
 
+      - name: build server and client
+        run: npm run build:ui && npm run build
+        working-directory: ./server
+
       - name: deploy app
         run: flyctl deploy --remote-only
         working-directory: ./server

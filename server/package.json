@@ -11,7 +11,7 @@
     "start": "node build/index.js",
     "test": "cross-env DBPATH='./testdb/database.sqlite' jest --verbose --runInBand",
     "tsc": "tsc",
-    "build": "npm run build:ui && npm run tsc",
+    "build": "npm run tsc",
     "build:ui": "rm -rf build && cd ../client && npm run build && cp -r build ../server",
     "deploy": "fly deploy",
     "lint": "eslint --ext .ts . && cd ../client && npm run lint"

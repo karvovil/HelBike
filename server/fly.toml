@@ -39,7 +39,7 @@ PORT = "8080"
 
   [mounts]
   source="fly_volume"
-  destination="/db"
+  destination="/flydb"
 
   [processes]
     app = "node build/index.js"

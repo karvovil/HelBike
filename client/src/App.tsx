@@ -58,7 +58,7 @@ const App = () => {
   };
 
   return (
-    <Box sx={{ margin: 'auto', width: '50%', minwidth: '500px', backgroundColor: 'white' }}>
+    <Box sx={{ margin: 'auto', width: '50%', minWidth: '500px', backgroundColor: 'white' }}>
 
       <NavigationBar/>
 

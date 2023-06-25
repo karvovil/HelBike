@@ -41,7 +41,7 @@ export const parseJourneys = async (filePath: string, stationIds: number[]) => {
   });
   
   await finished(parser);
-  return journeys;
+  return [...new Set(journeys)];
 };
 
 export const parseStations = async (filePath: string) => {

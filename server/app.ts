@@ -4,6 +4,16 @@ import stationRouter from './routes/stations';
 import cors from 'cors';
 import { connectToDB } from './util/db';
 
+//Deploy with this to move local db to fly volume.
+//Also remove db from .dockerignore
+/*
+import fs from 'fs';
+fs.copyFile('./db/database.sqlite', '/flydb/database.sqlite', (err) => {
+  if (err) throw err;
+  console.log('source.txt was copied to destination.txt');
+});
+*/
+
 const app = express();
 
 app.use(cors());

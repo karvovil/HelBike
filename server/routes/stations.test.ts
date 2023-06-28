@@ -55,5 +55,10 @@ test('fetches the right station ', async () => {
   expect(station.body).toEqual({
     ...firstStation,
     departingTotal: 1,
-    returningTotal: 1});
+    returningTotal: 1,
+    departingDistanceAverage: 43,
+    departingDurationAverage: 123,
+    returningDistanceAverage: 6128,
+    returningDurationAverage: 567,
+  });
 });

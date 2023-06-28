@@ -17,7 +17,7 @@ export const sequelize = new Sequelize(
 
 export const connectToDB = async () => {
   const dbExists = fs.existsSync(DBPATH);
-  console.log(dbExists);
+  console.log("dbExists: " + dbExists);
   
   try {
     await sequelize.authenticate();

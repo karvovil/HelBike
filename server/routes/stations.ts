@@ -1,5 +1,6 @@
 import express from 'express';
-import {  Station } from '../models';
+import {  Journey, Station } from '../models';
+import { sequelize } from '../util/db';
 
 const router = express.Router();
   
@@ -21,7 +22,35 @@ router.get('/:id', async (req, res) => {
     }else{
       const departingTotal = await station.countDepartingJourneys();
       const returningTotal = await station.countReturningJourneys();
-      res.send({...station.toJSON(), departingTotal, returningTotal});
+
+      const averages = await Station.findOne({
+        where: { id: req.params.id },
+        attributes: [
+          [sequelize.fn('AVG', sequelize.col('departingJourneys.duration')), 'departingDurationAverage'],
+          [sequelize.fn('AVG', sequelize.col('returningJourneys.duration')), 'returningDurationAverage'],
+        ],
+        include: [
+          {
+            model: Journey,
+            as: 'departingJourneys',
+            attributes: [],
+          },
+          {
+            model: Journey,
+            as: 'returningJourneys',
+            attributes: [],
+          },
+        ],
+        raw: true,
+        group: ['Station.id'],
+      });
+      console.log(averages);
+      
+      res.send({
+        ...station.toJSON(),
+        departingTotal, returningTotal,
+        ...averages
+      });
     }
   } catch (err) {
     console.log(err);

@@ -10,7 +10,9 @@ const SingleStation = ({stations}: SingleStationProps) => {
   const { id } = useParams();
   const [startTotal, setStartTotal] = useState<string>('...loading');
   const [endTotal, setEndTotal] = useState<string>('...loading');
-  const [averageStartingDistance, setAverageStartingDuration] = useState<string>('...loading');
+  const [averageStartingDistance, setAverageStartingDistance] = useState<string>('...loading');
+  const [averageEndingDistance, setAverageEndingDistance] = useState<string>('...loading');
+  const [averageStartingDuration, setAverageStartingDuration] = useState<string>('...loading');
   const [averageEndingDuration, setAverageEndingDuration] = useState<string>('...loading');
   const station = stations.find(s => s.id.toString() == id)
   
@@ -20,6 +22,8 @@ const SingleStation = ({stations}: SingleStationProps) => {
       .then(response => {
         setStartTotal(response.data.departingTotal.toString())
         setEndTotal(response.data.returningTotal.toString())
+        setAverageStartingDistance(response.data.departingDistanceAverage.toString())
+        setAverageEndingDistance(response.data.returningDistanceAverage.toString())
         setAverageStartingDuration(response.data.departingDurationAverage.toString())
         setAverageEndingDuration(response.data.returningDurationAverage.toString())
       })
@@ -41,7 +45,13 @@ const SingleStation = ({stations}: SingleStationProps) => {
         Total number of journeys ending at the station: {endTotal}
       </p>
       <p>
-        The average duration of a journey starting from the station: {averageStartingDistance} 
+        The average distance of a journey starting from the station: {averageStartingDistance} 
+      </p>
+      <p>
+        The average distance of a journey ending at the station: {averageEndingDistance}
+      </p>
+      <p>
+        The average duration of a journey starting from the station: {averageStartingDuration} 
       </p>
       <p>
         The average duration of a journey ending at the station: {averageEndingDuration} 

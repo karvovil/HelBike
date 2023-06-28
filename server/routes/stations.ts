@@ -23,33 +23,49 @@ router.get('/:id', async (req, res) => {
       const departingTotal = await station.countDepartingJourneys();
       const returningTotal = await station.countReturningJourneys();
 
-      const averages = await Station.findOne({
+      const departingAverages = await Station.findOne({
         where: { id: req.params.id },
-        attributes: [
-          [sequelize.fn('AVG', sequelize.col('departingJourneys.duration')), 'departingDurationAverage'],
-          [sequelize.fn('AVG', sequelize.col('returningJourneys.duration')), 'returningDurationAverage'],
-        ],
-        include: [
-          {
-            model: Journey,
-            as: 'departingJourneys',
-            attributes: [],
-          },
-          {
-            model: Journey,
-            as: 'returningJourneys',
-            attributes: [],
-          },
-        ],
+        attributes: [[
+          sequelize.fn('AVG', sequelize.col('departingJourneys.distance_covered')),
+          'departingDistanceAverage'
+        ],[
+          sequelize.fn('AVG', sequelize.col('departingJourneys.duration')),
+          'departingDurationAverage'
+        ]],
+        include: [{
+          model: Journey,
+          as: 'departingJourneys',
+          attributes: [],
+        }],
         raw: true,
         group: ['Station.id'],
       });
-      console.log(averages);
+      const returningAverages = await Station.findOne({
+        where: { id: req.params.id },
+        attributes: [[
+          sequelize.fn('AVG', sequelize.col('returningJourneys.distance_covered')),
+          'returningDistanceAverage'
+        ],[
+          sequelize.fn('AVG', sequelize.col('returningJourneys.duration')),
+          'returningDurationAverage'
+        ]],
+        include: [{
+          model: Journey,
+          as: 'returningJourneys',
+          attributes: [],
+        }],
+        raw: true,
+        group: ['Station.id'],
+      });
+      console.log({...station.toJSON(),
+        departingTotal, returningTotal,
+        ...departingAverages, ...returningAverages
+      });
       
       res.send({
         ...station.toJSON(),
         departingTotal, returningTotal,
-        ...averages
+        ...departingAverages, ...returningAverages
       });
     }
   } catch (err) {

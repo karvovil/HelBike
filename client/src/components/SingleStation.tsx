@@ -27,9 +27,8 @@ const SingleStation = ({stations}: SingleStationProps) => {
         setAverageStartingDuration(response.data.departingDurationAverage.toString())
         setAverageEndingDuration(response.data.returningDurationAverage.toString())
       })
-  }, [])
-  
-  const apikey = 'AIzaSyCKV1T78YX51f_Z5wJ8SfCsB0LGyOMJ1Bc'
+  }, []);
+  const apikey = process.env.REACT_APP_MAPS_API_KEY;
   if (!station) {return null}
   return (
     <div style={{border: '1px solid black'}}>

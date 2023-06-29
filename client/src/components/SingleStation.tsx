@@ -28,6 +28,7 @@ const SingleStation = ({stations}: SingleStationProps) => {
         setAverageEndingDuration(response.data.returningDurationAverage.toString())
       })
   }, [])
+  
   const apikey = 'AIzaSyCKV1T78YX51f_Z5wJ8SfCsB0LGyOMJ1Bc'
   if (!station) {return null}
   return (
@@ -56,7 +57,10 @@ const SingleStation = ({stations}: SingleStationProps) => {
       <p>
         The average duration of a journey ending at the station: {averageEndingDuration} 
       </p>
-      <img  src={`https://maps.googleapis.com/maps/api/staticmap?center=Helsinki,CA&zoom=14&size=400x400&key=${apikey}`} alt='map'/>
+      <img 
+        src={`https://maps.googleapis.com/maps/api/staticmap?zoom=14&size=400x400&markers=color:red%7Clabel:S%7C${station.address}&key=${apikey}`}
+        alt='map'
+      />
     </div>
   );
 }

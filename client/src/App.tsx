@@ -18,7 +18,6 @@ const App = () => {
   const [orderDirection, setOrder] = useState<Order>('asc')
   const [rowCount, setrowCount] = useState(0)
   const [rowsPerPage, setRowsPerPage] = useState(50);
-  console.log("this is the new version asdasdasd");
   
   useEffect(() => {
     axios
@@ -62,7 +61,8 @@ const App = () => {
 
       <NavigationBar/>
 
-      <Routes>  
+      <Routes>
+        <Route path="/" element={<p>frontpage</p>}/>
         <Route 
           path="/journeys"
           element={<JourneyList 

@@ -28,6 +28,8 @@ const SingleStation = ({stations}: SingleStationProps) => {
         setAverageEndingDuration(response.data.returningDurationAverage.toString())
       })
   }, []);
+  console.log(process.env);
+  
   const apikey = process.env.REACT_APP_MAPS_API_KEY;
   if (!station) {return null}
   return (

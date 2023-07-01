@@ -22,6 +22,7 @@ app.use(express.static('build'));
 
 app.use('/api/stations', stationRouter);
 app.use('/api/journeys', journeyRouter);
+console.log(process.env);
 connectToDB().then(v=>console.log(v)).catch(e=>console.log(e));
 
 export default app;

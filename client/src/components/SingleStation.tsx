@@ -30,7 +30,6 @@ const SingleStation = ({stations}: SingleStationProps) => {
   }, []);
   console.log(process.env);
   
-  const apikey = process.env.REACT_APP_MAPS_API_KEY;
   if (!station) {return null}
   return (
     <div style={{border: '1px solid black'}}>
@@ -59,7 +58,7 @@ const SingleStation = ({stations}: SingleStationProps) => {
         The average duration of a journey ending at the station: {averageEndingDuration} 
       </p>
       <img 
-        src={`https://maps.googleapis.com/maps/api/staticmap?zoom=14&size=400x400&markers=color:red%7Clabel:S%7C${station.address}&key=${apikey}`}
+        src={`https://maps.googleapis.com/maps/api/staticmap?zoom=14&size=400x400&markers=color:red%7Clabel:S%7C${station.address}&key=${process.env.REACT_APP_MAPS_API_KEY}`}
         alt='map'
       />
     </div>

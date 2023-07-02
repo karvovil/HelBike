@@ -58,15 +58,15 @@ router.get('/:id', async (req, res) => {
         raw: true,
         group: ['Station.id'],
       });
-      console.log({...station.toJSON(),
-        departingTotal, returningTotal,
-        ...departingAverages, ...returningAverages
-      });
+      
+      const mapUrl =
+      `https://maps.googleapis.com/maps/api/staticmap?zoom=14&size=400x400&markers=color:red%7Clabel:S%7C${station.address}&key=${process.env.REACT_APP_MAPS_API_KEY}`;
       
       res.send({
         ...station.toJSON(),
         departingTotal, returningTotal,
-        ...departingAverages, ...returningAverages
+        ...departingAverages, ...returningAverages,
+        mapUrl
       });
     }
   } catch (err) {

@@ -14,6 +14,7 @@ const SingleStation = ({stations}: SingleStationProps) => {
   const [averageEndingDistance, setAverageEndingDistance] = useState<string>('...loading');
   const [averageStartingDuration, setAverageStartingDuration] = useState<string>('...loading');
   const [averageEndingDuration, setAverageEndingDuration] = useState<string>('...loading');
+  const [mapUrl, setMapUrl] = useState<string>('')
   const station = stations.find(s => s.id.toString() == id)
   
   useEffect(() => {
@@ -26,6 +27,7 @@ const SingleStation = ({stations}: SingleStationProps) => {
         setAverageEndingDistance(response.data.returningDistanceAverage.toString())
         setAverageStartingDuration(response.data.departingDurationAverage.toString())
         setAverageEndingDuration(response.data.returningDurationAverage.toString())
+        setMapUrl(response.data.mapUrl)
       })
   }, []);
   console.log(process.env);
@@ -57,10 +59,7 @@ const SingleStation = ({stations}: SingleStationProps) => {
       <p>
         The average duration of a journey ending at the station: {averageEndingDuration} 
       </p>
-      <img 
-        src={`https://maps.googleapis.com/maps/api/staticmap?zoom=14&size=400x400&markers=color:red%7Clabel:S%7C${station.address}&key=${process.env.REACT_APP_MAPS_API_KEY}`}
-        alt='map'
-      />
+      <img src={mapUrl} alt='map'/>
     </div>
   );
 }

@@ -3,11 +3,11 @@ import {  Journey, Station } from '../models';
 import { sequelize } from '../util/db';
 
 const router = express.Router();
-console.log(process.env);
 
 router.get('/', (_req, res) => {
-
+  
   console.log('getting stations from DB');
+  console.log(process.env);
   Station.findAll().then( (stations) => {
     res.send(stations);
   }).catch( err => console.error(err));

@@ -3,7 +3,7 @@ import journeyRouter from './routes/journeys';
 import stationRouter from './routes/stations';
 import cors from 'cors';
 import { connectToDB } from './util/db';
-
+import 'dotenv/config';
 //Deploy with this to move local db to fly volume.
 //Also remove db from .dockerignore
 /*

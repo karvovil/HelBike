@@ -1,15 +1,46 @@
-Helsinki city bike app for Dev Academy pre-assignment as described in detail at https://github.com/solita/dev-academy-2023-exercise
-Now deployed at https://hel-bike.fly.dev/
+# Helsinki City Bike App
+UI and a backend service for displaying data from journeys made with city bikes in the Helsinki Capital area.
+Described in detail at https://github.com/solita/dev-academy-2023-exercise
+
+Deployed at https://hel-bike.fly.dev/
+
+[Tuntikirjanpito](tunnit.md)
+
+
+If you want to run this locally you need to download these csv files to /server/files
+* <https://dev.hsl.fi/citybikes/od-trips-2021/2021-05.csv>
+* <https://dev.hsl.fi/citybikes/od-trips-2021/2021-06.csv>
+* <https://dev.hsl.fi/citybikes/od-trips-2021/2021-07.csv> 
+
+When you launch the backend first time (`npm run dev` in /server folder) data is parsed to a local sqlite database.
+
 REACT_APP_MAPS_API_KEY environment variable needs to be provided with google maps api key with access to static maps.
-# Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+Needs node and sqlite to run. What else?
 ## Available Scripts
 
-In the **client** directory, you can run:
+### In the **server** directory, you can run:
 
-### `npm start`
+#### `npm run dev`
+Runs the backend in the development mode
+#### `npm run build`
+Compiles the app for production to the build folder
+### `npm run start`
+Starts the compiled app from /build
+#### `npm run test`
+Runs backend tests
+#### `npm run build:ui`
+Builds the react app from /client and moves it to build folder in /server 
+#### `npm run deploy`
+Deploys the app in fly.io
+#### `npm run lint`
+Runs eslint
+
+### In the **client** directory, you can run the usual cra stuff:
+
+#### `npm start`
 
 Runs the app in the development mode.\
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
@@ -17,12 +48,12 @@ Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 The page will reload if you make edits.\
 You will also see any lint errors in the console.
 
-### `npm test`
+#### `npm test`
 
 Launches the test runner in the interactive watch mode.\
 See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-### `npm run build`
+#### `npm run build`
 
 Builds the app for production to the `build` folder.\
 It correctly bundles React in production mode and optimizes the build for the best performance.
@@ -32,7 +63,7 @@ Your app is ready to be deployed!
 
 See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-### `npm run eject`
+#### `npm run eject`
 
 **Note: this is a one-way operation. Once you `eject`, you can’t go back!**
 
@@ -42,8 +73,4 @@ Instead, it will copy all the configuration files and the transitive dependencie
 
 You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
 
-## Learn More
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).

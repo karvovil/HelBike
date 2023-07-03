@@ -51,8 +51,10 @@ test('fetching a single station returns right type of object', async () => {
 
 test('fetches the right station ', async () => {
     
-  const station = await api.get(`/api/stations/1`);
-  expect(station.body).toEqual({
+  const response = await api.get(`/api/stations/1`); 
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+  const {mapUrl, ...station} = response.body;
+  expect(station).toEqual({
     ...firstStation,
     departingTotal: 1,
     returningTotal: 1,
@@ -61,4 +63,5 @@ test('fetches the right station ', async () => {
     returningDistanceAverage: 6128,
     returningDurationAverage: 567,
   });
+  expect(mapUrl).toContain('https://maps.googleapis.com/maps/api/staticmap');
 });

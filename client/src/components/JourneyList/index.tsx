@@ -9,20 +9,24 @@ import { TableFooter, TableRow, TablePagination } from "@mui/material";
 import TablePaginationActions from "@mui/material/TablePagination/TablePaginationActions";
 import axios from "axios";
 import { useEffect, useState } from "react";
-
+import { useLocation } from "react-router-dom";
 
 const JourneyList = () => {
-  
   const [journeys, setJourneys] = useState<BaseJourney[]>([])
   const [currentPage, setCurrentPage] = useState(0)
   const [orderBy, setOrderBy] = useState('distanceCovered')
   const [orderDirection, setOrder] = useState<Order>('asc')
   const [rowCount, setrowCount] = useState(0)
   const [rowsPerPage, setRowsPerPage] = useState(50);
-    
+
+  const { state } = useLocation();
+  
   useEffect(() => {
     axios
-      .get(`/api/journeys?currentPage=${currentPage}&orderBy=${orderBy}&orderDirection=${orderDirection}&rowsPerPage=${rowsPerPage}`)
+      .get(`/api/journeys?currentPage=${currentPage}&orderBy=${orderBy}`
+        + `&orderDirection=${orderDirection}&rowsPerPage=${rowsPerPage}`
+        + (state?.departingStation ? `&departingStation=${state.departingStation}` : '')
+        + (state?.returningStation ? `&returningStation=${state.returningStation}` : ''))
       .then(response => {
         setrowCount(response.data.count)
         setJourneys(response.data.rows)
@@ -62,7 +66,6 @@ const JourneyList = () => {
             orderDirection={orderDirection}
             onHandleSortClick={handleSortClick}
           />
-
           <TableBody>
             {journeys.map(j => <Journey
               key={j.id}

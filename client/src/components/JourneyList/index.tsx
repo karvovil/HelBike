@@ -7,29 +7,48 @@ import Paper from '@mui/material/Paper';
 import JourneyHeaders from "./JourneyListHeaders";
 import { TableFooter, TableRow, TablePagination } from "@mui/material";
 import TablePaginationActions from "@mui/material/TablePagination/TablePaginationActions";
+import axios from "axios";
+import { useEffect, useState } from "react";
 
-interface JourneyListProps {
-  journeys: BaseJourney[]
-  currentPage: number
-  rowCount: number
-  orderBy: string
-  orderDirection: Order
-  rowsPerPage: number
-  onPageChange: (
+
+const JourneyList = () => {
+  
+  const [journeys, setJourneys] = useState<BaseJourney[]>([])
+  const [currentPage, setCurrentPage] = useState(0)
+  const [orderBy, setOrderBy] = useState('distanceCovered')
+  const [orderDirection, setOrder] = useState<Order>('asc')
+  const [rowCount, setrowCount] = useState(0)
+  const [rowsPerPage, setRowsPerPage] = useState(50);
+    
+  useEffect(() => {
+    axios
+      .get(`/api/journeys?currentPage=${currentPage}&orderBy=${orderBy}&orderDirection=${orderDirection}&rowsPerPage=${rowsPerPage}`)
+      .then(response => {
+        setrowCount(response.data.count)
+        setJourneys(response.data.rows)
+      })
+  }, [currentPage, orderBy, orderDirection, rowsPerPage])
+  
+  const handlePageChange = (
     event: React.MouseEvent<HTMLButtonElement> | null,
     newPage: number,
-  ) => void
-  onRowsPerPageChange: (
-    event: React.ChangeEvent<HTMLInputElement>
-    ) => void
-  onHandleSortClick: (orderString: string) => void
-}
+  ) => setCurrentPage(newPage)
 
-const JourneyList = (
-  {journeys, rowCount, orderBy, orderDirection, currentPage, rowsPerPage,
-    onPageChange, onRowsPerPageChange, onHandleSortClick}
-  : JourneyListProps) => {
-    
+  const handleSortClick = (orderAttribute: string) =>  {
+    if (orderBy === orderAttribute){
+      orderDirection === 'asc' ? setOrder('desc') : setOrder('asc')
+    } else {
+      setOrderBy(orderAttribute)
+      setOrder('asc')
+    }
+  }
+  const handleChangeRowsPerPage = (
+    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+  ) => {
+    setRowsPerPage(parseInt(event.target.value));
+    setCurrentPage(0);
+  };
+
   return(
     <Paper sx={{ width: '100%', mb: 2 }}>
 
@@ -41,7 +60,7 @@ const JourneyList = (
           <JourneyHeaders
             orderBy={orderBy}
             orderDirection={orderDirection}
-            onHandleSortClick={onHandleSortClick}
+            onHandleSortClick={handleSortClick}
           />
 
           <TableBody>
@@ -55,10 +74,10 @@ const JourneyList = (
                 count={rowCount}
                 page={currentPage}
                 rowsPerPage={rowsPerPage}
-                onPageChange={onPageChange}
+                onPageChange={handlePageChange}
                 ActionsComponent={TablePaginationActions}
                 rowsPerPageOptions={[50, 100, 200]}
-                onRowsPerPageChange={onRowsPerPageChange}
+                onRowsPerPageChange={handleChangeRowsPerPage}
               />
             </TableRow>
           </TableFooter>

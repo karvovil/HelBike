@@ -19,13 +19,13 @@ const JourneyList = () => {
   const [rowCount, setrowCount] = useState(0)
   const [rowsPerPage, setRowsPerPage] = useState(50);
 
-  const { departingStationId, returningStationId } = useParams();
+  const { departingStationName, returningStationName } = useParams();
   useEffect(() => {
     axios
       .get(`/api/journeys?currentPage=${currentPage}&orderBy=${orderBy}`
         + `&orderDirection=${orderDirection}&rowsPerPage=${rowsPerPage}`
-        + (departingStationId ? `&departingStation=${departingStationId}` : '')
-        + (returningStationId ? `&returningStation=${returningStationId}` : ''))
+        + (departingStationName ? `&departingStation=${departingStationName}` : '')
+        + (returningStationName ? `&returningStation=${returningStationName}` : ''))
       .then(response => {
         setrowCount(response.data.count)
         setJourneys(response.data.rows)

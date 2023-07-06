@@ -28,8 +28,8 @@ const App = () => {
         <Route path="/journeys" element={<JourneyList />} />
         <Route path="/stations" element={<StationList stations={stations}/>} />
         <Route path="/stations/:id" element={<SingleStation stations={stations} />} />
-        <Route path="/departingJourneys/:departingStationId" element={<JourneyList />} />
-        <Route path="/returningJourneys/:returningStationId" element={<JourneyList />} />
+        <Route path="/departingJourneys/:departingStationName" element={<JourneyList />} />
+        <Route path="/returningJourneys/:returningStationName" element={<JourneyList />} />
       </Routes>
     </Box>
   );

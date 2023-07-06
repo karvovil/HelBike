@@ -65,13 +65,13 @@ const SingleStation = ({stations}: SingleStationProps) => {
       <Button
         variant="contained"
         component={Link}
-        to={`/departingJourneys/:${station.id}`} >   
+        to={`/departingJourneys/${station.name}`} >   
         show departing journeys
       </Button>
       <Button
         variant="contained"
         component={Link}
-        to={`/returningJourneys/:${station.id}`}>   
+        to={`/returningJourneys/${station.name}`}>   
         show returning journeys
       </Button>
     </div>

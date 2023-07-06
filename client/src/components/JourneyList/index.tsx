@@ -9,7 +9,7 @@ import { TableFooter, TableRow, TablePagination } from "@mui/material";
 import TablePaginationActions from "@mui/material/TablePagination/TablePaginationActions";
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
 const JourneyList = () => {
   const [journeys, setJourneys] = useState<BaseJourney[]>([])
@@ -19,14 +19,13 @@ const JourneyList = () => {
   const [rowCount, setrowCount] = useState(0)
   const [rowsPerPage, setRowsPerPage] = useState(50);
 
-  const { state } = useLocation();
-  
+  const { departingStationId, returningStationId } = useParams();
   useEffect(() => {
     axios
       .get(`/api/journeys?currentPage=${currentPage}&orderBy=${orderBy}`
         + `&orderDirection=${orderDirection}&rowsPerPage=${rowsPerPage}`
-        + (state?.departingStation ? `&departingStation=${state.departingStation}` : '')
-        + (state?.returningStation ? `&returningStation=${state.returningStation}` : ''))
+        + (departingStationId ? `&departingStation=${departingStationId}` : '')
+        + (returningStationId ? `&returningStation=${returningStationId}` : ''))
       .then(response => {
         setrowCount(response.data.count)
         setJourneys(response.data.rows)

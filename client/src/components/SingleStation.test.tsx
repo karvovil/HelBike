@@ -3,6 +3,8 @@ import { render, screen } from '@testing-library/react'
 import SingleStation from './SingleStation'
 import Router from 'react-router';
 import {testStations} from '../testData'
+import { MemoryRouter } from 'react-router-dom';
+
 
 jest.mock('react-router', () => ({
   ...jest.requireActual('react-router'),
@@ -15,7 +17,7 @@ test('renders given stations name', () => {
     id: testStations[0].id.toString()
   });
 
-  render(<SingleStation stations={testStations} />);
+  render(<SingleStation stations={testStations} />, {wrapper: MemoryRouter});
 
   const element = screen.getByText(testStations[0].name);
   expect(element).toBeDefined();

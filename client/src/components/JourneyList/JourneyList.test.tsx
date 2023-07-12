@@ -1,20 +1,20 @@
 import '@testing-library/jest-dom/extend-expect'
 import { render, screen } from '@testing-library/react'
 import { testJourneys } from '../../testData';
-import JourneyList from '.';
+import JourneyListContainer from './JourneyListContainer';
 
 test('renders every journeys station names', () => {
 
-  render(<JourneyList
+  render(<JourneyListContainer
     journeys={testJourneys}
     rowCount={200}
     rowsPerPage={50}
     currentPage={1}
     orderBy={'id'}
     orderDirection={'desc'}
-    onPageChange={()=>({})}
-    onHandleSortClick={()=>({})}
-    onRowsPerPageChange={()=>({})}
+    handlePageChange={()=>({})}
+    handleSortClick={()=>({})}
+    handleChangeRowsPerPage={()=>({})}
   />);
 
   const departureStations =

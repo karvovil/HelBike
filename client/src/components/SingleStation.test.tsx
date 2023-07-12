@@ -17,7 +17,7 @@ test('renders given stations name', () => {
     id: testStations[0].id.toString()
   });
 
-  render(<SingleStation stations={testStations} />);
+  render(<SingleStation stations={testStations}    />);
 
   const element = screen.getByText(testStations[0].name);
   expect(element).toBeDefined();

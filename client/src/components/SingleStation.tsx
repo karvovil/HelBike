@@ -1,7 +1,8 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { BaseStation } from "../types";
+import { Button } from "@mui/material";
 
 interface SingleStationProps {stations: BaseStation[] }
 
@@ -30,7 +31,6 @@ const SingleStation = ({stations}: SingleStationProps) => {
         setMapUrl(response.data.mapUrl)
       })
   }, []);
-  console.log(process.env);
   
   if (!station) {return null}
   return (
@@ -59,7 +59,21 @@ const SingleStation = ({stations}: SingleStationProps) => {
       <p>
         The average duration of a journey ending at the station: {averageEndingDuration} 
       </p>
-      <img src={mapUrl} alt='map'/>
+      <p>
+        <img src={mapUrl} alt='map'/>
+      </p>
+      <Button
+        variant="contained"
+        component={Link}
+        to={`/departingJourneys/${station.name}`} >   
+        show departing journeys
+      </Button>
+      <Button
+        variant="contained"
+        component={Link}
+        to={`/returningJourneys/${station.name}`}>   
+        show returning journeys
+      </Button>
     </div>
   );
 }

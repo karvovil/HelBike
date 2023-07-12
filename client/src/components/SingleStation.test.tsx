@@ -3,6 +3,8 @@ import { render, screen } from '@testing-library/react'
 import SingleStation from './SingleStation'
 import Router from 'react-router';
 import {testStations} from '../testData'
+import { MemoryRouter } from 'react-router-dom';
+
 
 jest.mock('react-router', () => ({
   ...jest.requireActual('react-router'),

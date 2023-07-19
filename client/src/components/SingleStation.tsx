@@ -33,6 +33,8 @@ const SingleStation = ({stations}: SingleStationProps) => {
         setAverageStartingDuration(response.data.departingDurationAverage.toString())
         setAverageEndingDuration(response.data.returningDurationAverage.toString())
         setMapUrl(response.data.mapUrl)
+        setTopDestinationStations(response.data.topDestinationStations)
+        setTopOriginStations(response.data.topOriginStations)
       })
   }, []);
   
@@ -88,7 +90,7 @@ const SingleStation = ({stations}: SingleStationProps) => {
             </ListItem>
           )}
       </List>
-      
+
       <List subheader={<ListSubheader>Top 5 destinations</ListSubheader>}>
         {stations
           .filter(station => topOriginStations.includes(station.id) )

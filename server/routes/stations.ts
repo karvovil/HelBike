@@ -61,11 +61,24 @@ router.get('/:id', async (req, res) => {
       const mapUrl =
       `https://maps.googleapis.com/maps/api/staticmap?zoom=14&size=400x400&markers=color:red%7Clabel:S%7C${station.address}&key=${process.env.REACT_APP_MAPS_API_KEY}`;
       
+      const topOrigins = await Station.findAll({
+        limit: 5,
+        order: [['name', 'DESC']]
+      });
+      const topOriginStations = topOrigins.map(s => s.id);
+
+      const topDestinations = await Station.findAll({
+        limit: 5,
+        order: [['name', 'ASC']]
+      });
+      const topDestinationStations = topDestinations.map(s => s.id);
+      
       res.send({
         ...station.toJSON(),
         departingTotal, returningTotal,
         ...departingAverages, ...returningAverages,
-        mapUrl
+        mapUrl,
+        topOriginStations, topDestinationStations
       });
     }
   } catch (err) {

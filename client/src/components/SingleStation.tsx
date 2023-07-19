@@ -2,7 +2,9 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { BaseStation } from "../types";
-import { Button } from "@mui/material";
+import { Button, ListItemText, ListSubheader } from "@mui/material";
+import List from "@mui/material/List"
+import ListItem from "@mui/material/ListItem"
 
 interface SingleStationProps {stations: BaseStation[] }
 
@@ -16,6 +18,8 @@ const SingleStation = ({stations}: SingleStationProps) => {
   const [averageStartingDuration, setAverageStartingDuration] = useState<string>('...loading');
   const [averageEndingDuration, setAverageEndingDuration] = useState<string>('...loading');
   const [mapUrl, setMapUrl] = useState<string>('')
+  const [topDestinationStations, setTopDestinationStations] = useState<number[]>([1,2,3,4,5])
+  const [topOriginStations, setTopOriginStations] = useState<number[]>([1,2,3,4,5])
   const station = stations.find(s => s.id.toString() == id)
   
   useEffect(() => {
@@ -74,7 +78,28 @@ const SingleStation = ({stations}: SingleStationProps) => {
         to={`/returningJourneys/${station.name}`}>   
         show returning journeys
       </Button>
+
+      <List subheader={<ListSubheader>Top 5 origin stations</ListSubheader>}>
+        {stations
+          .filter(station => topDestinationStations.includes(station.id) )
+          .map( station => 
+            <ListItem dense={true} key={station.id}>
+              <ListItemText primary={station.name}/>
+            </ListItem>
+          )}
+      </List>
+      
+      <List subheader={<ListSubheader>Top 5 destinations</ListSubheader>}>
+        {stations
+          .filter(station => topOriginStations.includes(station.id) )
+          .map( station => 
+            <ListItem dense={true} key={station.id}>
+              <ListItemText primary={station.name}/>
+            </ListItem>
+          )}
+      </List>
     </div>
+      
   );
 }
 export default SingleStation

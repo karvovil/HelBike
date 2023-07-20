@@ -61,17 +61,45 @@ router.get('/:id', async (req, res) => {
       const mapUrl =
       `https://maps.googleapis.com/maps/api/staticmap?zoom=14&size=400x400&markers=color:red%7Clabel:S%7C${station.address}&key=${process.env.REACT_APP_MAPS_API_KEY}`;
       
-      const topOrigins = await Station.findAll({
-        limit: 5,
-        order: [['name', 'DESC']]
-      });
-      const topOriginStations = topOrigins.map(s => s.id);
 
-      const topDestinations = await Station.findAll({
-        limit: 5,
-        order: [['name', 'ASC']]
+      /*       const orderedDestiantionStations = await Journey.findAll({
+        group: 'returnStationName',
+        attributes: { 
+          include: [[sequelize.fn("COUNT", sequelize.col('journey.departure_station_name')), "journeyCount"]] 
+        },
+      }); Finds most popular journeys*/
+
+      const orderedOriginStations = await Station.findAll({
+        order: [['journeyCount','DESC']],
+        group: 'station.id',
+        attributes: [
+          'id',
+          [sequelize.fn("COUNT", sequelize.col('departingJourneys.departure_station_name')), "journeyCount"] 
+        ],
+        include: [{
+          model: Journey,
+          attributes: [],
+          as: 'departingJourneys',
+        }],
       });
-      const topDestinationStations = topDestinations.map(s => s.id);
+      console.log(orderedOriginStations.map(s => s.toJSON()));
+      const topOriginStations = orderedOriginStations.map(s => s.id).slice(0, 5);
+
+      const orderedDestiantionStations = await Station.findAll({
+        order: [['journeyCount','DESC']],
+        group: 'station.id',
+        attributes: [
+          'id',
+          [sequelize.fn("COUNT", sequelize.col('departingJourneys.departure_station_name')), "journeyCount"] 
+        ],
+        include: [{
+          model: Journey,
+          attributes: [],
+          as: 'departingJourneys',
+        }],
+      });
+      console.log(orderedDestiantionStations.map(s => s.toJSON()));
+      const topDestinationStations = orderedDestiantionStations.map(s => s.id).slice(0, 5);
       
       res.send({
         ...station.toJSON(),

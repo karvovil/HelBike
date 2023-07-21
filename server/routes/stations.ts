@@ -70,7 +70,6 @@ router.get('/:id', async (req, res) => {
           [sequelize.fn("COUNT", sequelize.col('id')), "count"] 
         ],
       });
-      console.log(orderedOriginStations.map(s => s.toJSON()).slice(0,5));
       const topOriginStations = orderedOriginStations.map(s => s.toJSON().departureStationName).slice(0, 5);
       
       const orderedDestinationStations = await Journey.findAll({//top destination stations
@@ -82,7 +81,6 @@ router.get('/:id', async (req, res) => {
           [sequelize.fn("COUNT", sequelize.col('id')), "count"] 
         ],
       });
-      console.log(orderedDestinationStations.map(s => s.toJSON()).slice(0,5));
       const topDestinationStations = orderedDestinationStations.map(s => s.returnStationName).slice(0, 5);
       
       res.send({

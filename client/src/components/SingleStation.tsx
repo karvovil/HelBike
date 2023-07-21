@@ -18,8 +18,8 @@ const SingleStation = ({stations}: SingleStationProps) => {
   const [averageStartingDuration, setAverageStartingDuration] = useState<string>('...loading');
   const [averageEndingDuration, setAverageEndingDuration] = useState<string>('...loading');
   const [mapUrl, setMapUrl] = useState<string>('')
-  const [topDestinationStations, setTopDestinationStations] = useState<number[]>([1,2,3,4,5])
-  const [topOriginStations, setTopOriginStations] = useState<number[]>([1,2,3,4,5])
+  const [topDestinationStations, setTopDestinationStations] = useState<string[]>([])
+  const [topOriginStations, setTopOriginStations] = useState<string[]>([])
   const station = stations.find(s => s.id.toString() == id)
   
   useEffect(() => {
@@ -37,7 +37,6 @@ const SingleStation = ({stations}: SingleStationProps) => {
         setTopOriginStations(response.data.topOriginStations)
       })
   }, []);
-  
   if (!station) {return null}
   return (
     <div style={{border: '1px solid black'}}>
@@ -82,23 +81,18 @@ const SingleStation = ({stations}: SingleStationProps) => {
       </Button>
 
       <List subheader={<ListSubheader>Top 5 origin stations</ListSubheader>}>
-        {stations
-          .filter(station => topDestinationStations.includes(station.id) )
-          .map( station => 
-            <ListItem dense={true} key={station.id}>
-              <ListItemText primary={station.name}/>
-            </ListItem>
-          )}
+        {topOriginStations.map( stationName => 
+          <ListItem dense={true} key={stationName}>
+            <ListItemText primary={stationName}/>
+          </ListItem>
+        )}
       </List>
-
       <List subheader={<ListSubheader>Top 5 destinations</ListSubheader>}>
-        {stations
-          .filter(station => topOriginStations.includes(station.id) )
-          .map( station => 
-            <ListItem dense={true} key={station.id}>
-              <ListItemText primary={station.name}/>
-            </ListItem>
-          )}
+        {topDestinationStations.map( stationName => 
+          <ListItem dense={true} key={stationName}>
+            <ListItemText primary={stationName}/>
+          </ListItem>
+        )}
       </List>
     </div>
       

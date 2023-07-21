@@ -62,28 +62,28 @@ router.get('/:id', async (req, res) => {
       `https://maps.googleapis.com/maps/api/staticmap?zoom=14&size=400x400&markers=color:red%7Clabel:S%7C${station.address}&key=${process.env.REACT_APP_MAPS_API_KEY}`;
       
       const orderedOriginStations = await Journey.findAll({//top origin stations
-        group: 'departure_station_name',
+        group: 'departureStationName',
         where: { returnStationName: station.name },
-        order: [['cnt','DESC']],
+        order: [['count','DESC']],
         attributes: [
-          'departure_station_name',
-          [sequelize.fn("COUNT", sequelize.col('return_Station_Name')), "cnt"] 
+          'departureStationName',
+          [sequelize.fn("COUNT", sequelize.col('id')), "count"] 
         ],
       });
-      console.log(orderedOriginStations.map(s => s.toJSON()));
-      const topOriginStations = orderedOriginStations.map(s => s.id).slice(0, 5);
+      console.log(orderedOriginStations.map(s => s.toJSON()).slice(0,5));
+      const topOriginStations = orderedOriginStations.map(s => s.toJSON().departureStationName).slice(0, 5);
       
-      const orderedDestinationStations = await Journey.findAll({//top destiantion stations
-        group: 'departure_station_name',
-        where: { returnStationName: station.name },
-        order: [['cnt','DESC']],
+      const orderedDestinationStations = await Journey.findAll({//top destination stations
+        group: 'returnStationName',
+        where: { departureStationName: station.name },
+        order: [['count','DESC']],
         attributes: [
-          'departure_station_name',
-          [sequelize.fn("COUNT", sequelize.col('return_Station_Name')), "cnt"] 
+          'returnStationName',
+          [sequelize.fn("COUNT", sequelize.col('id')), "count"] 
         ],
       });
-      console.log(orderedDestinationStations.map(s => s.toJSON()).slice(0,9));
-      const topDestinationStations = orderedDestinationStations.map(s => s.id).slice(0, 5);
+      console.log(orderedDestinationStations.map(s => s.toJSON()).slice(0,5));
+      const topDestinationStations = orderedDestinationStations.map(s => s.returnStationName).slice(0, 5);
       
       res.send({
         ...station.toJSON(),

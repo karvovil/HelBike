@@ -61,45 +61,29 @@ router.get('/:id', async (req, res) => {
       const mapUrl =
       `https://maps.googleapis.com/maps/api/staticmap?zoom=14&size=400x400&markers=color:red%7Clabel:S%7C${station.address}&key=${process.env.REACT_APP_MAPS_API_KEY}`;
       
-
-      /*       const orderedDestiantionStations = await Journey.findAll({
-        group: 'returnStationName',
-        attributes: { 
-          include: [[sequelize.fn("COUNT", sequelize.col('journey.departure_station_name')), "journeyCount"]] 
-        },
-      }); Finds most popular journeys*/
-
-      const orderedOriginStations = await Station.findAll({
-        order: [['journeyCount','DESC']],
-        group: 'station.id',
+      const orderedOriginStations = await Journey.findAll({//top origin stations
+        group: 'departure_station_name',
+        where: { returnStationName: station.name },
+        order: [['cnt','DESC']],
         attributes: [
-          'id',
-          [sequelize.fn("COUNT", sequelize.col('departingJourneys.departure_station_name')), "journeyCount"] 
+          'departure_station_name',
+          [sequelize.fn("COUNT", sequelize.col('return_Station_Name')), "cnt"] 
         ],
-        include: [{
-          model: Journey,
-          attributes: [],
-          as: 'departingJourneys',
-        }],
       });
       console.log(orderedOriginStations.map(s => s.toJSON()));
       const topOriginStations = orderedOriginStations.map(s => s.id).slice(0, 5);
-
-      const orderedDestiantionStations = await Station.findAll({
-        order: [['journeyCount','DESC']],
-        group: 'station.id',
+      
+      const orderedDestinationStations = await Journey.findAll({//top destiantion stations
+        group: 'departure_station_name',
+        where: { returnStationName: station.name },
+        order: [['cnt','DESC']],
         attributes: [
-          'id',
-          [sequelize.fn("COUNT", sequelize.col('departingJourneys.departure_station_name')), "journeyCount"] 
+          'departure_station_name',
+          [sequelize.fn("COUNT", sequelize.col('return_Station_Name')), "cnt"] 
         ],
-        include: [{
-          model: Journey,
-          attributes: [],
-          as: 'departingJourneys',
-        }],
       });
-      console.log(orderedDestiantionStations.map(s => s.toJSON()));
-      const topDestinationStations = orderedDestiantionStations.map(s => s.id).slice(0, 5);
+      console.log(orderedDestinationStations.map(s => s.toJSON()).slice(0,9));
+      const topDestinationStations = orderedDestinationStations.map(s => s.id).slice(0, 5);
       
       res.send({
         ...station.toJSON(),

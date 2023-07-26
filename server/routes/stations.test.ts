@@ -62,6 +62,8 @@ test('fetches the right station ', async () => {
     departingDurationAverage: 123,
     returningDistanceAverage: 6128,
     returningDurationAverage: 567,
+    topOriginStations: ['Kolmas'],
+    topDestinationStations: ['Toinen'],
   });
   expect(mapUrl).toContain('https://maps.googleapis.com/maps/api/staticmap');
 });

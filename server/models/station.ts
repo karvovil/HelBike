@@ -8,6 +8,7 @@ class Station extends Model
   declare address: string;
   declare departingTotal?: NonAttribute<number>;
   declare returningTotal?: NonAttribute<number>;
+  declare journeyCount?: NonAttribute<number>;
   declare countDepartingJourneys: HasManyCountAssociationsMixin;
   declare countReturningJourneys: HasManyCountAssociationsMixin;
 }

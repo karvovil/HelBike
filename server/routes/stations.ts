@@ -61,11 +61,34 @@ router.get('/:id', async (req, res) => {
       const mapUrl =
       `https://maps.googleapis.com/maps/api/staticmap?zoom=14&size=400x400&markers=color:red%7Clabel:S%7C${station.address}&key=${process.env.REACT_APP_MAPS_API_KEY}`;
       
+      const orderedOriginStations = await Journey.findAll({//top origin stations
+        group: 'departureStationName',
+        where: { returnStationName: station.name },
+        order: [['count','DESC']],
+        attributes: [
+          'departureStationName',
+          [sequelize.fn("COUNT", sequelize.col('id')), "count"] 
+        ],
+      });
+      const topOriginStations = orderedOriginStations.map(s => s.toJSON().departureStationName).slice(0, 5);
+      
+      const orderedDestinationStations = await Journey.findAll({//top destination stations
+        group: 'returnStationName',
+        where: { departureStationName: station.name },
+        order: [['count','DESC']],
+        attributes: [
+          'returnStationName',
+          [sequelize.fn("COUNT", sequelize.col('id')), "count"] 
+        ],
+      });
+      const topDestinationStations = orderedDestinationStations.map(s => s.returnStationName).slice(0, 5);
+      
       res.send({
         ...station.toJSON(),
         departingTotal, returningTotal,
         ...departingAverages, ...returningAverages,
-        mapUrl
+        mapUrl,
+        topOriginStations, topDestinationStations
       });
     }
   } catch (err) {

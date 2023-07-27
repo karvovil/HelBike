@@ -5,3 +5,5 @@ node_modules
 .git
 files
 db
+/client
+.env

@@ -12,7 +12,7 @@ If you want to run this locally you need to download these csv files to /server/
 * <https://dev.hsl.fi/citybikes/od-trips-2021/2021-06.csv>
 * <https://dev.hsl.fi/citybikes/od-trips-2021/2021-07.csv> 
 
-When you launch the backend first time (`npm run dev` in /server folder) data is parsed to a local sqlite database.
+When you launch the backend first time (`npm run dev`) data is parsed to a local sqlite database.
 
 REACT_APP_MAPS_API_KEY environment variable needs to be provided with google maps api key with access to static maps.
 
@@ -21,12 +21,10 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 Needs node and sqlite to run. What else?
 ## Available Scripts
 
-### In the **server** directory, you can run:
-
 #### `npm run dev`
 Runs the backend in the development mode
 #### `npm run build`
-Compiles the app for production to the build folder
+Compiles the backend for production to the build folder
 ### `npm run start`
 Starts the compiled app from /build
 #### `npm run test`

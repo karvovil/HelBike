@@ -14,7 +14,7 @@ router.get('/', async (req, res) => {
         
     const { count, rows } = await Journey.findAndCountAll({
       where: whereClause,
-      offset: Number(req.query.currentPage) * 100,//TODO is this assuming 100 itmes per page? If so fix it
+      offset: Number(req.query.currentPage) * Number(req.query.rowsPerPage),
       limit: Number(req.query.rowsPerPage),
       order: [[String(req.query.orderBy), String(req.query.orderDirection)]]
     });

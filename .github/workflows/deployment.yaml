@@ -9,7 +9,7 @@ on:
     types: [opened, synchronize]
 
 env:
-  MAPS_API_KEY: secrets.MAPS_API_KEY
+  MAPS_API_KEY: ${{ secrets.MAPS_API_KEY }}
 
 jobs:
   hel-bike_deployment_pipeline:

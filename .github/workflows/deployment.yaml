@@ -8,6 +8,9 @@ on:
     branches: [master]
     types: [opened, synchronize]
 
+env:
+  MAPS_API_KEY: secrets.MAPS_API_KEY
+
 jobs:
   hel-bike_deployment_pipeline:
     runs-on: ubuntu-22.04

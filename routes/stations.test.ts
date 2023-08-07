@@ -53,7 +53,7 @@ test('fetches the right station ', async () => {
     
   const response = await api.get(`/api/stations/1`); 
   // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-  const {mapUrl, ...station} = response.body;
+  const {base64MapPic, ...station} = response.body;
   expect(station).toEqual({
     ...firstStation,
     departingTotal: 1,
@@ -65,5 +65,5 @@ test('fetches the right station ', async () => {
     topOriginStations: ['Kolmas'],
     topDestinationStations: ['Toinen'],
   });
-  expect(mapUrl).toContain('https://maps.googleapis.com/maps/api/staticmap');
+  expect(base64MapPic).toBeDefined();
 });

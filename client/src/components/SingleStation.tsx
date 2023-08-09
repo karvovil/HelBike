@@ -17,7 +17,7 @@ const SingleStation = ({stations}: SingleStationProps) => {
   const [averageEndingDistance, setAverageEndingDistance] = useState<string>('...loading');
   const [averageStartingDuration, setAverageStartingDuration] = useState<string>('...loading');
   const [averageEndingDuration, setAverageEndingDuration] = useState<string>('...loading');
-  const [mapUrl, setMapUrl] = useState<string>('')
+  const [mapPic, setMapPic] = useState('')
   const [topDestinationStations, setTopDestinationStations] = useState<string[]>([])
   const [topOriginStations, setTopOriginStations] = useState<string[]>([])
   const station = stations.find(s => s.id.toString() == id)
@@ -32,7 +32,7 @@ const SingleStation = ({stations}: SingleStationProps) => {
         setAverageEndingDistance(response.data.returningDistanceAverage.toString())
         setAverageStartingDuration(response.data.departingDurationAverage.toString())
         setAverageEndingDuration(response.data.returningDurationAverage.toString())
-        setMapUrl(response.data.mapUrl)
+        setMapPic(response.data.base64MapPic)
         setTopDestinationStations(response.data.topDestinationStations)
         setTopOriginStations(response.data.topOriginStations)
       })
@@ -65,7 +65,7 @@ const SingleStation = ({stations}: SingleStationProps) => {
         The average duration of a journey ending at the station: {averageEndingDuration} 
       </p>
       <p>
-        <img src={mapUrl} alt='map'/>
+        <img src={`data:image/jpeg;base64,${mapPic}`} />
       </p>
       <Button
         variant="contained"

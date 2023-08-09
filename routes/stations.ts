@@ -1,7 +1,7 @@
 import express from 'express';
 import {  Journey, Station } from '../models';
 import { sequelize } from '../util/db';
-
+import axios from "axios";
 const router = express.Router();
 
 router.get('/', (_req, res) => {
@@ -59,8 +59,10 @@ router.get('/:id', async (req, res) => {
       });
       
       const mapUrl =
-      `https://maps.googleapis.com/maps/api/staticmap?zoom=14&size=400x400&markers=color:red%7Clabel:S%7C${station.address}&key=${process.env.REACT_APP_MAPS_API_KEY}`;
-      
+      `https://maps.googleapis.com/maps/api/staticmap?zoom=14&size=400x400&markers=color:red%7Clabel:S%7C${station.address}&key=${process.env.MAPS_API_KEY}`;
+      const mapPic: {data: ArrayBuffer} = await axios.get(mapUrl, {responseType: 'arraybuffer'});
+      const base64MapPic = Buffer.from(mapPic.data).toString('base64');
+
       const orderedOriginStations = await Journey.findAll({//top origin stations
         group: 'departureStationName',
         where: { returnStationName: station.name },
@@ -87,7 +89,7 @@ router.get('/:id', async (req, res) => {
         ...station.toJSON(),
         departingTotal, returningTotal,
         ...departingAverages, ...returningAverages,
-        mapUrl,
+        base64MapPic,
         topOriginStations, topDestinationStations
       });
     }

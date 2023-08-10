@@ -2,7 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { BaseStation } from "../types";
-import { Box, Button, Container, ListItemText, ListSubheader, Typography } from "@mui/material";
+import { Box, Button, ListItemText, ListSubheader, Paper, Typography } from "@mui/material";
 import List from "@mui/material/List"
 import ListItem from "@mui/material/ListItem"
 
@@ -39,7 +39,7 @@ const SingleStation = ({stations}: SingleStationProps) => {
   }, []);
   if (!station) {return null}
   return (
-    <div style={{border: '1px solid black'}}>
+    <Paper>
       <Typography variant="h4">{station.name} </Typography>
       <Typography variant="h6">{station.address}</Typography>
       <Typography><img src={`data:image/jpeg;base64,${mapPic}`} /></Typography>
@@ -49,11 +49,19 @@ const SingleStation = ({stations}: SingleStationProps) => {
             variant="contained"
             component={Link}
             to={`/departingJourneys/${station.name}`}>
-          show departing journeys
+          departing journeys
           </Button>
-          <Typography>Number of journeys starting from the station: {startTotal}</Typography>
-          <Typography>Average distance of a journey starting from the station: {averageStartingDistance} </Typography>
-          <Typography>Average duration of a journey starting from the station: {averageStartingDuration} </Typography>
+          <List>
+            <ListItem dense={true}>
+              <ListItemText primary={`Number of journeys starting from the station: ${startTotal}`} />
+            </ListItem>
+            <ListItem dense={true}>
+              <ListItemText primary={`Average distance: ${averageStartingDistance}`} />
+            </ListItem>
+            <ListItem dense={true}>
+              <ListItemText primary={`Average duration: ${averageStartingDuration}`} />
+            </ListItem>
+          </List>
           <List subheader={<ListSubheader>Top 5 origin stations</ListSubheader>}>
             {topOriginStations.map(stationName => <ListItem dense={true} key={stationName}>
               <ListItemText primary={stationName} />
@@ -66,11 +74,19 @@ const SingleStation = ({stations}: SingleStationProps) => {
             variant="contained"
             component={Link}
             to={`/returningJourneys/${station.name}`}>
-          show returning journeys
+          returning journeys
           </Button>
-          <Typography>Number of journeys ending at the station: {endTotal}</Typography>
-          <Typography>Average distance of a journey ending at the station: {averageEndingDistance}</Typography>
-          <Typography>Average duration of a journey ending at the station: {averageEndingDuration} </Typography>
+          <List>
+            <ListItem dense={true}>
+              <ListItemText primary={`Number of journeys ending at the station: ${endTotal}`} />
+            </ListItem>
+            <ListItem dense={true}>
+              <ListItemText primary={`Average distance ${averageEndingDistance}`} />
+            </ListItem>
+            <ListItem dense={true}>
+              <ListItemText primary={`Average duration: ${averageEndingDuration}`} />
+            </ListItem>
+          </List>
           <List subheader={<ListSubheader>Top 5 destinations</ListSubheader>}>
             {topDestinationStations.map(stationName => <ListItem dense={true} key={stationName}>
               <ListItemText primary={stationName} />
@@ -79,7 +95,7 @@ const SingleStation = ({stations}: SingleStationProps) => {
           </List>
         </Box>
       </Box>
-    </div>
+    </Paper>
       
   );
 }

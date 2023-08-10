@@ -11,33 +11,36 @@ interface SingleStationProps {stations: BaseStation[] }
 const SingleStation = ({stations}: SingleStationProps) => {
 
   const { id } = useParams();
-  const [startTotal, setStartTotal] = useState<string>('...loading');
-  const [endTotal, setEndTotal] = useState<string>('...loading');
-  const [averageStartingDistance, setAverageStartingDistance] = useState<string>('...loading');
-  const [averageEndingDistance, setAverageEndingDistance] = useState<string>('...loading');
-  const [averageStartingDuration, setAverageStartingDuration] = useState<string>('...loading');
-  const [averageEndingDuration, setAverageEndingDuration] = useState<string>('...loading');
+  const [startTotal, setStartTotal] = useState<number>(0);
+  const [endTotal, setEndTotal] = useState<number>(0);
+  const [averageStartingDistance, setAverageStartingDistance] = useState<number>(0);
+  const [averageEndingDistance, setAverageEndingDistance] = useState<number>(0);
+  const [averageStartingDuration, setAverageStartingDuration] = useState<number>(0);
+  const [averageEndingDuration, setAverageEndingDuration] = useState<number>(0);
   const [mapPic, setMapPic] = useState('')
   const [topDestinationStations, setTopDestinationStations] = useState<string[]>([])
   const [topOriginStations, setTopOriginStations] = useState<string[]>([])
+  const [loading, setLoading] = useState<boolean>(true)
   const station = stations.find(s => s.id.toString() == id)
   
   useEffect(() => {
     axios
       .get(`/api/stations/${id}`)
       .then(response => {
-        setStartTotal(response.data.departingTotal.toString())
-        setEndTotal(response.data.returningTotal.toString())
-        setAverageStartingDistance(response.data.departingDistanceAverage.toString())
-        setAverageEndingDistance(response.data.returningDistanceAverage.toString())
-        setAverageStartingDuration(response.data.departingDurationAverage.toString())
-        setAverageEndingDuration(response.data.returningDurationAverage.toString())
+        setStartTotal(response.data.departingTotal)
+        setEndTotal(response.data.returningTotal)
+        setAverageStartingDistance(response.data.departingDistanceAverage)
+        setAverageEndingDistance(response.data.returningDistanceAverage)
+        setAverageStartingDuration(response.data.departingDurationAverage)
+        setAverageEndingDuration(response.data.returningDurationAverage)
         setMapPic(response.data.base64MapPic)
         setTopDestinationStations(response.data.topDestinationStations)
         setTopOriginStations(response.data.topOriginStations)
+        setLoading(false)
       })
   }, []);
   if (!station) {return null}
+  if (loading) {return <p>...loading</p>}
   return (
     <Paper>
       <Typography variant="h4">{station.name} </Typography>
@@ -56,10 +59,10 @@ const SingleStation = ({stations}: SingleStationProps) => {
               <ListItemText primary={`Number of journeys starting from the station: ${startTotal}`} />
             </ListItem>
             <ListItem dense={true}>
-              <ListItemText primary={`Average distance: ${averageStartingDistance}`} />
+              <ListItemText primary={`Average distance: ${Math.round(averageStartingDistance)} m`} />
             </ListItem>
             <ListItem dense={true}>
-              <ListItemText primary={`Average duration: ${averageStartingDuration}`} />
+              <ListItemText primary={`Average duration: ${Math.round(averageStartingDuration)} s`} />
             </ListItem>
           </List>
           <List subheader={<ListSubheader>Top 5 origin stations</ListSubheader>}>
@@ -81,10 +84,10 @@ const SingleStation = ({stations}: SingleStationProps) => {
               <ListItemText primary={`Number of journeys ending at the station: ${endTotal}`} />
             </ListItem>
             <ListItem dense={true}>
-              <ListItemText primary={`Average distance ${averageEndingDistance}`} />
+              <ListItemText primary={`Average distance ${Math.round(averageEndingDistance)} m`} />
             </ListItem>
             <ListItem dense={true}>
-              <ListItemText primary={`Average duration: ${averageEndingDuration}`} />
+              <ListItemText primary={`Average duration: ${Math.round(averageEndingDuration)} s`} />
             </ListItem>
           </List>
           <List subheader={<ListSubheader>Top 5 destinations</ListSubheader>}>

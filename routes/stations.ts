@@ -59,7 +59,7 @@ router.get('/:id', async (req, res) => {
       });
       
       const mapUrl =
-      `https://maps.googleapis.com/maps/api/staticmap?zoom=14&size=400x400&markers=color:red%7Clabel:S%7C${station.address}&key=${process.env.MAPS_API_KEY}`;
+      `https://maps.googleapis.com/maps/api/staticmap?zoom=14&size=600x400&markers=color:red%7Clabel:S%7C${station.address}&key=${process.env.MAPS_API_KEY}`;
       const mapPic: {data: ArrayBuffer} = await axios.get(mapUrl, {responseType: 'arraybuffer'});
       const base64MapPic = Buffer.from(mapPic.data).toString('base64');
 

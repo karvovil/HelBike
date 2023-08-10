@@ -42,19 +42,19 @@ const SingleStation = ({stations}: SingleStationProps) => {
   if (!station) {return null}
   if (loading) {return <p>...loading</p>}
   return (
-    <Paper>
+    <Paper sx={{pl: 1 }}>
       <Typography variant="h4">{station.name} </Typography>
       <Typography variant="h6">{station.address}</Typography>
       <Typography><img src={`data:image/jpeg;base64,${mapPic}`} /></Typography>
       <Box sx={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)' }}>
         <Box>
-          <Button
-            variant="contained"
-            component={Link}
-            to={`/departingJourneys/${station.name}`}>
-          departing journeys
-          </Button>
           <List>
+            <Button
+              variant="contained"
+              component={Link}
+              to={`/departingJourneys/${station.name}`}>
+          departing journeys
+            </Button>
             <ListItem dense={true}>
               <ListItemText primary={`Number of journeys starting from the station: ${startTotal}`} />
             </ListItem>
@@ -65,7 +65,8 @@ const SingleStation = ({stations}: SingleStationProps) => {
               <ListItemText primary={`Average duration: ${Math.round(averageStartingDuration)} s`} />
             </ListItem>
           </List>
-          <List subheader={<ListSubheader>Top 5 origin stations</ListSubheader>}>
+          <List>
+            <Typography>Top 5 origin stations</Typography>
             {topOriginStations.map(stationName => <ListItem dense={true} key={stationName}>
               <ListItemText primary={stationName} />
             </ListItem>
@@ -73,13 +74,13 @@ const SingleStation = ({stations}: SingleStationProps) => {
           </List>
         </Box>
         <Box>
-          <Button
-            variant="contained"
-            component={Link}
-            to={`/returningJourneys/${station.name}`}>
-          returning journeys
-          </Button>
           <List>
+            <Button
+              variant="contained"
+              component={Link}
+              to={`/returningJourneys/${station.name}`}>
+          returning journeys
+            </Button>
             <ListItem dense={true}>
               <ListItemText primary={`Number of journeys ending at the station: ${endTotal}`} />
             </ListItem>
@@ -90,7 +91,9 @@ const SingleStation = ({stations}: SingleStationProps) => {
               <ListItemText primary={`Average duration: ${Math.round(averageEndingDuration)} s`} />
             </ListItem>
           </List>
-          <List subheader={<ListSubheader>Top 5 destinations</ListSubheader>}>
+          
+          <List>
+            <Typography>Top 5 destinations</Typography>
             {topDestinationStations.map(stationName => <ListItem dense={true} key={stationName}>
               <ListItemText primary={stationName} />
             </ListItem>

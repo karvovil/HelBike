@@ -2,7 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { BaseStation } from "../types";
-import { Box, Button, ListItemText, ListSubheader, Paper, Typography } from "@mui/material";
+import { Box, Button, ListItemText, Paper, Typography } from "@mui/material";
 import List from "@mui/material/List"
 import ListItem from "@mui/material/ListItem"
 

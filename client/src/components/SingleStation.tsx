@@ -40,7 +40,12 @@ const SingleStation = ({stations}: SingleStationProps) => {
       })
   }, []);
   if (!station) {return null}
-  if (loading) {return <p>...loading</p>}
+  if (loading) {return(
+    <>
+      <Typography variant="h4">{station.name}</Typography>
+      <Typography>...loading</Typography>
+    </>
+  )}
   return (
     <Paper sx={{pl: 1 }}>
       <Typography variant="h4">{station.name} </Typography>
@@ -53,7 +58,7 @@ const SingleStation = ({stations}: SingleStationProps) => {
               variant="contained"
               component={Link}
               to={`/departingJourneys/${station.name}`}>
-          departing journeys
+              departing journeys
             </Button>
             <ListItem dense={true}>
               <ListItemText primary={`Number of journeys starting from the station: ${startTotal}`} />
@@ -79,7 +84,7 @@ const SingleStation = ({stations}: SingleStationProps) => {
               variant="contained"
               component={Link}
               to={`/returningJourneys/${station.name}`}>
-          returning journeys
+              returning journeys
             </Button>
             <ListItem dense={true}>
               <ListItemText primary={`Number of journeys ending at the station: ${endTotal}`} />

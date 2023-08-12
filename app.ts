@@ -22,6 +22,13 @@ app.use(express.static('build'));
 
 app.use('/api/stations', stationRouter);
 app.use('/api/journeys', journeyRouter);
+
+if(process.env.NODE_ENV==='production'){
+  app.get('/*', (_req, res) => {
+    res.sendFile(__dirname + '/index.html');
+  });
+}
+
 connectToDB().then(v=>console.log(v)).catch(e=>console.log(e));
 
 export default app;

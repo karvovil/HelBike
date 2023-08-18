@@ -1,7 +1,9 @@
-import { Box, List, Button, ListItem, ListItemText, Typography } from "@mui/material"
+import { Box, List, Button, ListItem, ListItemText, Typography, ListItemButton } from "@mui/material"
 import { Link } from "react-router-dom"
+import { BaseStation } from "../../types"
 
 interface JourneyInfoProps {
+  stations: BaseStation[],
   departing: boolean,
   stationName: string,
   journeyTotal: number,
@@ -10,7 +12,7 @@ interface JourneyInfoProps {
   topStations: string[]
 }
 const JourneyInfo = (
-  {departing, stationName, journeyTotal, averageDistance, averageDuration, topStations}
+  {stations, departing, stationName, journeyTotal, averageDistance, averageDuration, topStations}
   :JourneyInfoProps) => {
 
   return (  
@@ -38,7 +40,9 @@ const JourneyInfo = (
         <Typography>Top 5 {departing ? 'destinations':'origin stations' }</Typography>
         {topStations.map(name =>
           <ListItem dense={true} key={name}>
-            <ListItemText primary={name} />
+            <ListItemButton component={Link} to={`/stations/${stations.find(s => s.name === name)?.id}`}>
+              <ListItemText primary={name} />
+            </ListItemButton>
           </ListItem>
         )}
       </List>

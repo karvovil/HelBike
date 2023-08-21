@@ -1,8 +1,8 @@
 import '@testing-library/jest-dom/extend-expect'
 import { render, screen } from '@testing-library/react'
-import SingleStation from './SingleStation'
+import SingleStation from '.'
 import Router from 'react-router';
-import {testStations} from '../testData'
+import {testStations} from '../../testData'
 import { MemoryRouter } from 'react-router-dom';
 
 

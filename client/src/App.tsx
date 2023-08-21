@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 import StationList from "./components/StationList";
 import NavigationBar from "./components/NavigationBar";
 import { Box } from "@mui/material";
+import FrontPage from "./components/FrontPage";
 
 const App = () => {
 
@@ -21,10 +22,10 @@ const App = () => {
   }, [])
 
   return (
-    <Box sx={{ margin: 'auto', width: '50%', minWidth: '500px', backgroundColor: 'white' }}>
+    <Box sx={{ margin: 'auto', width: '55%' }}>
       <NavigationBar/>
       <Routes>
-        <Route path="/" element={<p>frontpage</p>}/>
+        <Route path="/" element={<FrontPage/>}/>
         <Route path="/journeys" element={<JourneyList />} />
         <Route path="/stations" element={<StationList stations={stations}/>} />
         <Route path="/stations/:id" element={<SingleStation stations={stations} />} />

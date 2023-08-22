@@ -33,7 +33,9 @@ const JourneyInfo = (
           <ListItemText primary={`Average distance: ${Math.round(averageDistance)} m`} />
         </ListItem>
         <ListItem dense={true}>
-          <ListItemText primary={`Average duration: ${Math.round(averageDuration)} s`} />
+          <ListItemText primary={
+            `Average duration: ${Math.floor(averageDuration/60)} m ${Math.round(averageDuration%60)} s`
+          } />
         </ListItem>
       </List>
       <List>

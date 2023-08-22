@@ -22,7 +22,7 @@ const App = () => {
   }, [])
 
   return (
-    <Box sx={{ margin: 'auto', width: '55%' }}>
+    <Box sx={{ margin: 'auto', maxWidth:'900px' }}>
       <NavigationBar/>
       <Routes>
         <Route path="/" element={<FrontPage/>}/>

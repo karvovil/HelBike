@@ -1,18 +1,18 @@
-import AppBar from "@mui/material/AppBar";
-import Box from "@mui/material/Box";
-import Toolbar from "@mui/material/Toolbar";
-import Typography from "@mui/material/Typography";
-import { Link } from "react-router-dom";
+import AppBar from '@mui/material/AppBar';
+import Box from '@mui/material/Box';
+import Toolbar from '@mui/material/Toolbar';
+import Typography from '@mui/material/Typography';
+import { Link } from 'react-router-dom';
 
 const menuLinks: readonly string[] = ['stations', 'journeys']
 
 export default function NavigationBar() {
 
   return (
-    <AppBar sx={{ marginBottom: 1}} position="static">
+    <AppBar sx={{ marginBottom: 1}} position='static'>
       <Toolbar>
         <Box sx={{ margin: 'auto', width: '50%'}}>
-          <Typography variant="h6" component="a" href='/'
+          <Typography variant='h6' component='a' href='/'
             sx={{
               textAlign:'left',
               fontWeight:700,
@@ -28,9 +28,9 @@ export default function NavigationBar() {
           <Typography
             key={menuLink}
             to={menuLink} 
-            variant="h6" 
+            variant='h6' 
             component={Link} 
-            textAlign="center"
+            textAlign='center'
             sx={{
               mr: 2,
               fontWeight: 700,

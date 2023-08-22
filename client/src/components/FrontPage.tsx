@@ -1,4 +1,4 @@
-import { Box, Typography } from "@mui/material";
+import { Box, Typography } from '@mui/material';
 
 const FrontPage = () => {
   return(
@@ -9,7 +9,7 @@ const FrontPage = () => {
         title='logo'
         sx={{ width: '100%', margin: 'auto' }}
       />
-      <Typography variant="h4" align="center" fontWeight={600}>
+      <Typography variant='h4' align='center' fontWeight={600}>
         HSL city bike stations and journeys
       </Typography>
     </Box>

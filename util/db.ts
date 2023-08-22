@@ -1,10 +1,10 @@
 import { Sequelize } from 'sequelize';
 import { parseJourneys, parseStations } from './parser';
 import { Journey, Station } from '../models';
-import * as fs from "fs";
+import * as fs from 'fs';
 import { DBPATH } from './config';
 import {testStations, testJourneys} from './testData';
-import * as path from "path";
+import * as path from 'path';
 
 export const sequelize = new Sequelize(
   'bikeJourneyDB',
@@ -25,7 +25,7 @@ export const connectToDB = async () => {
   try {
     await sequelize.authenticate();
   } catch (err) {
-    console.error("Can not connect to db", err);
+    console.error('Can not connect to db', err);
     return process.exit(1);
   }
 

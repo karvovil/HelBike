@@ -32,13 +32,13 @@ export interface BaseJourney {
   duration:             number
 }
 export interface CSVJourney {
-  "Departure":              string
-  "Return":                 string
-  "Departure station id":   number
-  "Departure station name": string
-  "Return station id":      number
-  "Return station name":    string
-  "Covered distance (m)":   number
-  "Duration (sec.)":        number
+  'Departure':              string
+  'Return':                 string
+  'Departure station id':   number
+  'Departure station name': string
+  'Return station id':      number
+  'Return station name':    string
+  'Covered distance (m)':   number
+  'Duration (sec.)':        number
 }
 export type Order = 'asc' | 'desc';

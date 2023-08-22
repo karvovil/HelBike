@@ -1,7 +1,7 @@
-import * as fs from "fs";
-import * as path from "path";
+import * as fs from 'fs';
+import * as path from 'path';
 import { parse } from 'csv-parse';
-import { BaseJourney, BaseStation, CSVJourney, CSVStation } from "../types";
+import { BaseJourney, BaseStation, CSVJourney, CSVStation } from '../types';
 import { finished } from 'stream/promises';
 
 export const parseJourneys = async (filePath: string, stationIds: number[]) => {
@@ -17,12 +17,12 @@ export const parseJourneys = async (filePath: string, stationIds: number[]) => {
       on_record: (line: CSVJourney) => {
 
         const journey: BaseJourney = {
-          departureStationId:   line["Departure station id"],
-          departureStationName: line["Departure station name"],
-          returnStationId:      line["Return station id"],
-          returnStationName:    line["Return station name"],
-          distanceCovered:      line["Covered distance (m)"],
-          duration:             line["Duration (sec.)"]
+          departureStationId:   line['Departure station id'],
+          departureStationName: line['Departure station name'],
+          returnStationId:      line['Return station id'],
+          returnStationName:    line['Return station name'],
+          distanceCovered:      line['Covered distance (m)'],
+          duration:             line['Duration (sec.)']
         };      
         return journey;
       },

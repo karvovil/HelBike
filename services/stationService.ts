@@ -1,6 +1,6 @@
 import { Journey, Station } from '../models';
 import { sequelize } from '../util/db';
-import axios from "axios";
+import axios from 'axios';
 
 const getAverages = async (id: string, direction:'departing'|'returning') => {
   const averages = await Station.findOne({
@@ -57,7 +57,7 @@ export const getOneStation = async (id: string) => {
         order: [['count','DESC']],
         attributes: [
           'departureStationName',
-          [sequelize.fn("COUNT", sequelize.col('id')), "count"] 
+          [sequelize.fn('COUNT', sequelize.col('id')), 'count'] 
         ],
       });
       const topOriginStations = orderedOriginStations
@@ -69,7 +69,7 @@ export const getOneStation = async (id: string) => {
         order: [['count','DESC']],
         attributes: [
           'returnStationName',
-          [sequelize.fn("COUNT", sequelize.col('id')), "count"] 
+          [sequelize.fn('COUNT', sequelize.col('id')), 'count'] 
         ],
       });
       const topDestinationStations = orderedDestinationStations

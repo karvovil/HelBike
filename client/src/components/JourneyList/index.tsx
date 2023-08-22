@@ -1,9 +1,9 @@
-import { BaseJourney, Order } from "../../types"
+import { BaseJourney, Order } from '../../types'
 
-import axios from "axios";
-import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-import JourneyListContainer from "./JourneyListContainer";
+import axios from 'axios';
+import { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
+import JourneyListContainer from './JourneyListContainer';
 
 const JourneyList = () => {
   const [journeys, setJourneys] = useState<BaseJourney[]>([])
@@ -16,23 +16,23 @@ const JourneyList = () => {
   const { departingStationName, returningStationName } = useParams();
   useEffect(() => {
     axios
-      .get(`/api/journeys?currentPage=${currentPage}&orderBy=${orderBy}`
-        + `&orderDirection=${orderDirection}&rowsPerPage=${rowsPerPage}`
-        + (departingStationName ? `&departingStation=${departingStationName}` : '')
-        + (returningStationName ? `&returningStation=${returningStationName}` : ''))
+      .get(`/api/journeys?currentPage=${currentPage}&orderBy=${orderBy}` +
+        `&orderDirection=${orderDirection}&rowsPerPage=${rowsPerPage}` +
+        (departingStationName ? `&departingStation=${departingStationName}` : '') +
+        (returningStationName ? `&returningStation=${returningStationName}` : ''))
       .then(response => {
         setrowCount(response.data.count)
         setJourneys(response.data.rows)
       })
   }, [currentPage, orderBy, orderDirection, rowsPerPage])
-  
+
   const handlePageChange = (
     event: React.MouseEvent<HTMLButtonElement> | null,
     newPage: number,
   ) => setCurrentPage(newPage)
-        
-  const handleSortClick = (orderAttribute: string) =>  {
-    if (orderBy === orderAttribute){
+
+  const handleSortClick = (orderAttribute: string) => {
+    if (orderBy === orderAttribute) {
       orderDirection === 'asc' ? setOrder('desc') : setOrder('asc')
     } else {
       setOrderBy(orderAttribute)

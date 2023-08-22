@@ -1,12 +1,12 @@
-import TextField from "@mui/material/TextField"
+import TextField from '@mui/material/TextField'
 
 interface FilterProps {
     filter: string,
     handleFilterChange: React.ChangeEventHandler<HTMLInputElement>
   }
 
-const Filter = ({filter, handleFilterChange}: FilterProps) => {
-  return(
+const Filter = ({ filter, handleFilterChange }: FilterProps) => {
+  return (
     <TextField
       value={filter}
       onChange={handleFilterChange}

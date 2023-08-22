@@ -1,5 +1,5 @@
-import {BaseStation} from './types';
-import {Routes, Route } from 'react-router-dom'
+import { BaseStation } from './types';
+import { Routes, Route } from 'react-router-dom'
 import JourneyList from './components/JourneyList';
 import SingleStation from './components/SingleStation';
 import axios from 'axios';
@@ -22,7 +22,7 @@ const App = () => {
   }, [])
 
   return (
-    <Box sx={{ margin: 'auto', maxWidth:'900px' }}>
+    <Box sx={{ margin: 'auto', maxWidth: '900px' }}>
       <NavigationBar/>
       <Routes>
         <Route path='/' element={<FrontPage/>}/>

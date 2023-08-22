@@ -6,7 +6,7 @@ import { testStations } from '../../testData';
 
 test('renders first stations name', () => {
 
-  render(<StationList stations={testStations} />, {wrapper: BrowserRouter});
+  render(<StationList stations={testStations} />, { wrapper: BrowserRouter });
 
   const element = screen.getByText(testStations[0].name);
   expect(element).toBeDefined();

@@ -3,7 +3,7 @@ import { parseJourneys, parseStations } from './parser';
 import { Journey, Station } from '../models';
 import * as fs from "fs";
 import { DBPATH } from './config';
-import {testStations, testJourneys} from '../testData';
+import {testStations, testJourneys} from './testData';
 import * as path from "path";
 
 export const sequelize = new Sequelize(

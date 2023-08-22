@@ -50,10 +50,10 @@ test('fetching a single station returns right type of object', async () => {
 });
 
 test('fetches the right station ', async () => {
-    
-  const response = await api.get('/api/stations/1'); 
+
+  const response = await api.get('/api/stations/1');
   // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-  const {base64MapPic, ...station} = response.body;
+  const { base64MapPic, ...station } = response.body;
   expect(station).toEqual({
     ...firstStation,
     departingTotal: 1,

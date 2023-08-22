@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/space-before-blocks */
 import express from 'express';
 import journeyRouter from './routes/journeys';
 import stationRouter from './routes/stations';
@@ -14,7 +15,7 @@ app.use(express.static('build'));
 app.use('/api/stations', stationRouter);
 app.use('/api/journeys', journeyRouter);
 
-if(process.env.NODE_ENV==='production'){
+if (process.env.NODE_ENV === 'production'){
   app.get('/*', (_req, res) => {
     res.sendFile(__dirname + '/index.html');
   });

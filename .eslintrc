@@ -22,13 +22,23 @@
       "error",
       { "argsIgnorePattern": "^_" }
     ],
+    "@typescript-eslint/quotes": ["error","single"],
+    "@typescript-eslint/comma-spacing": "error",
+    "@typescript-eslint/space-before-blocks": "error",
+    "@typescript-eslint/keyword-spacing": "error",
+    "@typescript-eslint/type-annotation-spacing": "error",
+    "@typescript-eslint/space-before-function-paren": "error",
+    "@typescript-eslint/object-curly-spacing": ["error", "always"],
+    "@typescript-eslint/space-infix-ops": "error",
+    
     "no-case-declarations": "off",
     "indent": ["error", 2],
-    "@typescript-eslint/quotes": [
-      "error",
-      "single"
-    ]
-
+    "block-spacing":"error",
+    "no-multi-spaces": "error",
+    "key-spacing": "error",
+    "space-in-parens": "error",
+    "no-trailing-spaces": "error",
+    "operator-linebreak": "error"
   },
   "parser": "@typescript-eslint/parser",
   "parserOptions": {

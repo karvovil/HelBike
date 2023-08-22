@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/space-before-blocks */
 import { Model, DataTypes, InferAttributes, InferCreationAttributes, CreationOptional } from 'sequelize';
 import { sequelize } from '../util/db';
 

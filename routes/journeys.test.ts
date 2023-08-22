@@ -28,7 +28,7 @@ test('right type of data is returned', async () => {
 
   expect(response.body.rows).toBeInstanceOf(Array<Journey>);
 });
-  
+
 test('first journey from test db is returned with results', async () => {
   const response = await api
     .get(`/api/journeys${queryparameters}`);

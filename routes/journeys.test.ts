@@ -4,7 +4,8 @@ import app from '../app';
 import { Journey } from '../models';
 
 const api = supertest(app);
-const queryparameters = '?currentPage=0&orderBy=id&orderDirection=asc&rowsPerPage=100';
+const queryparameters =
+  '?currentPage=0&orderBy=id&orderDirection=asc&rowsPerPage=100';
 
 const firstJourney = testJourneys[0];
 

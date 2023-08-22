@@ -2,14 +2,20 @@ import { Journey, Station } from '../models';
 import { sequelize } from '../util/db';
 import axios from 'axios';
 
-const getAverages = async (id: string, direction: 'departing' | 'returning') => {
+const getAverages = async (
+  id: string, direction: 'departing' | 'returning'
+) => {
   const averages = await Station.findOne({
     where: { id: id },
     attributes: [[
-      sequelize.fn('AVG', sequelize.col(`${direction}Journeys.distance_covered`)),
+      sequelize.fn(
+        'AVG', sequelize.col(`${direction}Journeys.distance_covered`)
+      ),
       `${direction}DistanceAverage`
     ], [
-      sequelize.fn('AVG', sequelize.col(`${direction}Journeys.duration`)),
+      sequelize.fn(
+        'AVG', sequelize.col(`${direction}Journeys.duration`)
+      ),
       `${direction}DurationAverage`
     ]],
     include: [{
@@ -44,12 +50,16 @@ export const getOneStation = async (id: string) => {
       const departingAverages = await getAverages(id, 'departing');
       const returningAverages = await getAverages(id, 'returning');
 
-      const mapUrl =
-        `https://maps.googleapis.com/maps/api/staticmap?zoom=14&size=600x400&markers=color:red%7Clabel:S%7C${station.address}&key=${process.env.MAPS_API_KEY}`;
+      const mapUrl = `https://maps.googleapis.com/maps/api/staticmap?\
+      zoom=14&size=600x400&markers=color:red%7Clabel:S\
+      %7C${station.address}&key=${process.env.MAPS_API_KEY}`;
+
       const mapPic: { data: ArrayBuffer } | void = await axios
         .get(mapUrl, { responseType: 'arraybuffer' })
         .catch(err => console.error(err));
-      const base64MapPic = mapPic ? Buffer.from(mapPic.data).toString('base64') : '';
+
+      const base64MapPic =
+        mapPic ? Buffer.from(mapPic.data).toString('base64') : '';
 
       const orderedOriginStations = await Journey.findAll({
         group: 'departureStationName',

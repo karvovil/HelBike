@@ -38,7 +38,8 @@
     "key-spacing": "error",
     "space-in-parens": "error",
     "no-trailing-spaces": "error",
-    "operator-linebreak": "error"
+    "operator-linebreak": "error",
+    "max-len": ["error", { "code": 80 }]
   },
   "parser": "@typescript-eslint/parser",
   "parserOptions": {

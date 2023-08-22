@@ -41,7 +41,9 @@ export const populateDatabase = async () => {
     '2021-05.csv', '2021-06.csv', '2021-07.csv']
     .map(f => path.resolve('files', f));
 
-  const dataFilesExist = dataFiles.reduce((a, b) => a && fs.existsSync(b), true);
+  const dataFilesExist = dataFiles.reduce(
+    (a, b) => a && fs.existsSync(b), true
+  );
 
   if (process.env.NODE_ENV === 'test' || !dataFilesExist) {
     await Station.bulkCreate(testStations);

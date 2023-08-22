@@ -1,4 +1,8 @@
-import { Model, DataTypes, InferAttributes, InferCreationAttributes, NonAttribute, HasManyCountAssociationsMixin } from 'sequelize';
+import {
+  Model, DataTypes,
+  InferAttributes, InferCreationAttributes,
+  NonAttribute, HasManyCountAssociationsMixin
+} from 'sequelize';
 import { sequelize } from '../util/db';
 
 class Station extends Model

@@ -98,13 +98,18 @@ const validateStation = (station: BaseStation) => {
 
 const validateJourney = (journey: BaseJourney, stationIds: number[]) => {
 
-  if (!journey.departureStationId || isNaN(journey.departureStationId) || !stationIds.includes(journey.departureStationId)) {
+  if (!journey.departureStationId ||
+    isNaN(journey.departureStationId) ||
+    !stationIds.includes(journey.departureStationId)) {
     return false;
   }
-  if (!journey.departureStationName || !isString(journey.departureStationName)) {
+  if (!journey.departureStationName ||
+    !isString(journey.departureStationName)) {
     return false;
   }
-  if (!journey.returnStationId || isNaN(journey.returnStationId) || !stationIds.includes(journey.returnStationId)) {
+  if (!journey.returnStationId ||
+    isNaN(journey.returnStationId) ||
+    !stationIds.includes(journey.returnStationId)) {
     return false;
   }
   if (!journey.returnStationName || !isString(journey.returnStationName)) {

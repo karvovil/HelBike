@@ -7,8 +7,10 @@ const router = express.Router();
 router.get('/', async (req, res) => {
   try {
     const whereClause =
-    req.query.departingStation ? { departureStationName: String(req.query.departingStation) }
-      : req.query.returningStation ? { returnStationName: String(req.query.returningStation) }
+    req.query.departingStation
+      ? { departureStationName: String(req.query.departingStation) }
+      : req.query.returningStation
+        ? { returnStationName: String(req.query.returningStation) }
         : {} ;
 
     const { count, rows } = await Journey.findAndCountAll({

@@ -20,6 +20,8 @@ if(process.env.NODE_ENV==='production'){
   });
 }
 
-connectToDB().then(v=>console.log(v)).catch(e=>console.log(e));
+connectToDB()
+  .then(_v => console.log('Connected to db'))
+  .catch(e => console.error(e));
 
 export default app;

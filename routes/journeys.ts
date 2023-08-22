@@ -5,8 +5,7 @@ const router = express.Router();
 
 // eslint-disable-next-line @typescript-eslint/no-misused-promises
 router.get('/', async (req, res) => {
-  console.log('getting journeys from DB');
-  try {//TODO validate query params
+  try {
     const whereClause =
     req.query.departingStation ? {departureStationName: String(req.query.departingStation)}
       : req.query.returningStation ? {returnStationName: String(req.query.returningStation)}

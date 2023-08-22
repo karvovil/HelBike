@@ -35,21 +35,3 @@ test('first journey from test db is returned with results', async () => {
   const journeys = response.body.rows as Journey[];
   expect(journeys).toContainEqual(firstJourney);
 });
-
-/* test('responds with 404 if fetching journey that doesnt exist', async () => {
-  await api
-    .get(`/api/journeys/999999999999`)
-    .expect(404);
-});
-
-test('responds with 404 if id is invalid', async () => {
-  await api
-    .get(`/api/journeys/fpoawjrt9348u+qjf`)
-    .expect(404);
-});
-
-test('', async () => {
-
-  const journey = await api.get(`/api/journeys/1`);
-  expect(journey.body).toBeInstanceOf(Journey);
-}); */

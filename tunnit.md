@@ -10,7 +10,7 @@
 | 14.1. | 3    | Tieto liikkuu nyt backin ja frontin välillä  |
 | 15.1. | 3    | Datan parsiminen csv tiedostoista  |
 | 16.1. | 3    | Lisää parsimista, /stations antaa myös asemaan liityvien matkojen määrän |
-| 19.1. | 4    | Tarkempi parsiminen. Turhat kentät jätetään pois |
+| 19.1. | 4    | Tarkempi parsiminen. Tarpeettomat kentät jätetään pois |
 | 19.1. | 2    | Datan validointi |
 | 20.1. | 4    | Tietokannan valinta, tutustuminen, asennus yms. säätö |
 | 21.1  | 3    | Tietokannan taulujen määrittely sequelizen avulla  |
@@ -43,10 +43,35 @@
 |  25.6.| 2    | Parsijan korjausta |
 |  26.6.| 1    | Uudella parsijalla luodun tietokannan vieminen fly.io volumelle |
 |  28.6.| 2    | asemaan liittyvien matkojen keskiarvojen hakeminen |
-|  28.6.| 2    | Hakujen optimointia, testien korjausta |
+|  28.6.| 2    | hakujen optimointia, testien korjausta |
 |  29.6.| 4    | Aseman sijainnin näyttäminen kartalla |
 |  30.6.| 1    | React Routing ongelmien debuggaus ja korjaaminen |
 |   1.7.| 2    | Fly.io tuotantoversion debuggaaminen |
 |   2.7.| 3    | Fly.io tuotantoversion debuggaaminen ja korjaus |
 |   3.7.| 3    | Testien korjaus, READMEn päivitys |
-| yht   | 139  | goal: 175 | 
+|   4.7.| 4    | matkojen filtteröinti aseman perusteella, front + back|
+|   6.7.| 2    | matkojen filtteröinti aseman perusteella, front + back |
+|  12.7.| 2    | testien korjaus, CD/CI saatöä |
+|  12.7.| 1    | CD/CI säätöä |
+|  19.7.| 2    | top 5 stations feature, front + back alustava rakenne|
+|  20.7.| 2    | top 5 stations feature, query |
+|  20.7.| 2    | top 5 stations feature, queryn parantelu, testit |
+|  24.7.| 1    | Reititysbugin korjaus |
+|  26.7.| 1    | Julkaisun päivitys fly.io:n uuteen v2 versioon |
+|  26.7.| 3    | refaktorointia |
+|  30.7.| 1    | refaktorointia |
+|  01.8.| 2    | bugikorjauksia, api avaimen piilotus |
+|  07.8.| 1    | bugikorjauksia, api avaimen piilotus |
+|  09.8.| 2    | riippuvuuksien päivittäminen, haavoittuvuuksien korjaus |
+|  10.8.| 3    | tyylittelyä mui:n avulla |
+|  11.8.| 1    | bugikorjauksia |
+|  15.8.| 1    | refaktorointia |
+|  16.8.| 1    | parsimisen parantelu |
+|  16.8.| 1    | enemmän linkkejä aplikaation sisällä |
+|  18.8.| 1    | enemmän linkkejä aplikaation sisällä |
+|  21.8.| 2    | etusivun luonti |
+|  21.8.| 1    | korjataan/hiljennetään varoituksia |
+|  22.8.| 1    | visuaalisia parannuksia |
+|  22.8.| 2    | parannuksia koodin laatuun ja luettavuuteen, uusia ESLint sääntöjä  |
+|  27.8.| 1    | README:n päivitys |
+| yht   | 183  |  | 

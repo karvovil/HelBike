@@ -6,38 +6,44 @@ Deployed at https://hel-bike.fly.dev/
 
 [Tuntikirjanpito](tunnit.md)
 
+Needs Node and sqlite3 to run. Tested with Node 18
 
-If you want to run this locally you need to download these csv files to /server/files
+If you want to run backend with the full data you need to download following csv files to /files folder:
 * <https://dev.hsl.fi/citybikes/od-trips-2021/2021-05.csv>
 * <https://dev.hsl.fi/citybikes/od-trips-2021/2021-06.csv>
 * <https://dev.hsl.fi/citybikes/od-trips-2021/2021-07.csv> 
 
-When you launch the backend first time (`npm run dev`) data is parsed to a local sqlite database.
 
-REACT_APP_MAPS_API_KEY environment variable needs to be provided with google maps api key with access to static maps.
+To launch backend run `npm i` and then `npm run dev`. To launch client run `npm i` and `npm start` in /client directory.
+
+When backend is launched and database is not found, data is parsed to a sqlite database in /db/database.sqlite from the csv files.
+If the three csv files are not present, test data is used instead for populating database. To start the parsing process again, remove database from /db folder and launch backend again. 
+
+MAPS_API_KEY environment variable needs to be set with google maps api key that has access to static maps. App still works without it but maps are not shown.
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-Needs node and sqlite to run. What else?
 ## Available Scripts
-
 #### `npm run dev`
 Runs the backend in the development mode
 #### `npm run build`
 Compiles the backend for production to the build folder
-### `npm run start`
+#### `npm run start`
 Starts the compiled app from /build
 #### `npm run test`
 Runs backend tests
 #### `npm run build:ui`
-Builds the react app from /client and moves it to build folder in /server 
+Builds the react app from /client and moves it to build folder in /server.
+**This is `*`nix spesific**
 #### `npm run deploy`
 Deploys the app in fly.io
 #### `npm run lint`
-Runs eslint
+Runs eslint (backend and client)
 
-### In the **client** directory, you can run the usual cra stuff:
+### In the **client** directory, you can run eslint and the usual cra stuff:
 
+#### `npm run lint`
+Runs eslint (client)
 #### `npm start`
 
 Runs the app in the development mode.\

@@ -1,11 +1,11 @@
-import Link from "@mui/material/Link";
-import {BaseJourney} from "../../types";
+import Link from '@mui/material/Link';
+import { BaseJourney } from '../../types';
 import TableCell from '@mui/material/TableCell';
 import TableRow from '@mui/material/TableRow';
 
 interface JourneyProps {journey: BaseJourney}
 
-const Journey = ({journey}: JourneyProps) => {
+const Journey = ({ journey }: JourneyProps) => {
   return (
     <TableRow key={journey.id}>
 
@@ -15,7 +15,7 @@ const Journey = ({journey}: JourneyProps) => {
           color="inherit"
           href={`/stations/${journey.departureStationId}`}
         >
-          {journey.departureStationName} 
+          {journey.departureStationName}
         </Link>
       </TableCell>
 
@@ -25,7 +25,7 @@ const Journey = ({journey}: JourneyProps) => {
           color="inherit"
           href={`/stations/${journey.returnStationId}`}
         >
-          {journey.returnStationName} 
+          {journey.returnStationName}
         </Link>
       </TableCell>
 

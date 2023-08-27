@@ -1,6 +1,6 @@
-import { Box, List, Button, ListItem, ListItemText, Typography, ListItemButton } from "@mui/material"
-import { Link } from "react-router-dom"
-import { BaseStation } from "../../types"
+import { Box, List, Button, ListItem, ListItemText, Typography, ListItemButton } from '@mui/material'
+import { Link } from 'react-router-dom'
+import { BaseStation } from '../../types'
 
 interface JourneyInfoProps {
   stations: BaseStation[],
@@ -12,21 +12,20 @@ interface JourneyInfoProps {
   topStations: string[]
 }
 const JourneyInfo = (
-  {stations, departing, stationName, journeyTotal, averageDistance, averageDuration, topStations}
-  :JourneyInfoProps) => {
+  { stations, departing, stationName, journeyTotal, averageDistance, averageDuration, topStations }: JourneyInfoProps) => {
 
-  return (  
+  return (
     <Box>
       <List>
         <Button
           variant="contained"
           component={Link}
           to={`/departingJourneys/${stationName}`}>
-          {departing?'departing':'returning'} journeys
+          {departing ? 'departing' : 'returning'} journeys
         </Button>
         <ListItem dense={true}>
           <ListItemText primary={
-            `Number of journeys ${departing ? 'starting from':'ending at'} the station: ${journeyTotal}`
+            `Number of journeys ${departing ? 'starting from' : 'ending at'} the station: ${journeyTotal}`
           } />
         </ListItem>
         <ListItem dense={true}>
@@ -34,12 +33,12 @@ const JourneyInfo = (
         </ListItem>
         <ListItem dense={true}>
           <ListItemText primary={
-            `Average duration: ${Math.floor(averageDuration/60)} m ${Math.round(averageDuration%60)} s`
+            `Average duration: ${Math.floor(averageDuration / 60)} m ${Math.round(averageDuration % 60)} s`
           } />
         </ListItem>
       </List>
       <List>
-        <Typography>Top 5 {departing ? 'destinations':'origin stations' }</Typography>
+        <Typography>Top 5 {departing ? 'destinations' : 'origin stations' }</Typography>
         {topStations.map(name =>
           <ListItem dense={true} key={name}>
             <ListItemButton component={Link} to={`/stations/${stations.find(s => s.name === name)?.id}`}>

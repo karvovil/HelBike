@@ -11,9 +11,9 @@ router.get('/', async (_req, res) => {
 // eslint-disable-next-line @typescript-eslint/no-misused-promises
 router.get('/:id', async (req, res) => {
   const station = await getOneStation(req.params.id);
-  if (!station){
+  if (!station) {
     res.status(404).send('Sorry, cant find that ');
-  }else{
+  } else {
     res.send(station);
   }
 });

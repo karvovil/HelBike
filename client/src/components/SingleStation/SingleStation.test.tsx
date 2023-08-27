@@ -2,7 +2,7 @@ import '@testing-library/jest-dom/extend-expect'
 import { render, screen } from '@testing-library/react'
 import SingleStation from '.'
 import Router from 'react-router';
-import {testStations} from '../../testData'
+import { testStations } from '../../testData'
 import { MemoryRouter } from 'react-router-dom';
 
 
@@ -17,7 +17,7 @@ test('renders given stations name', () => {
     id: testStations[0].id.toString()
   });
 
-  render(<SingleStation stations={testStations}/>, {wrapper: MemoryRouter});
+  render(<SingleStation stations={testStations}/>, { wrapper: MemoryRouter });
 
   const element = screen.getByText(testStations[0].name);
   expect(element).toBeDefined();

@@ -1,12 +1,12 @@
-import Journey from "./Journey"
+import Journey from './Journey'
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableContainer from '@mui/material/TableContainer';
 import Paper from '@mui/material/Paper';
-import JourneyHeaders from "./JourneyListHeaders";
-import { TableFooter, TableRow, TablePagination } from "@mui/material";
-import TablePaginationActions from "@mui/material/TablePagination/TablePaginationActions";
-import { BaseJourney, Order } from "../../types";
+import JourneyHeaders from './JourneyListHeaders';
+import { TableFooter, TableRow, TablePagination } from '@mui/material';
+import TablePaginationActions from '@mui/material/TablePagination/TablePaginationActions';
+import { BaseJourney, Order } from '../../types';
 
 interface JourneyListContainerProps {
 	journeys: BaseJourney[],
@@ -15,20 +15,20 @@ interface JourneyListContainerProps {
   orderDirection: Order
   rowCount: number,
 	rowsPerPage: number,
-  handlePageChange:(event: React.MouseEvent<HTMLButtonElement> | null, newPage: number) => void,
+  handlePageChange: (event: React.MouseEvent<HTMLButtonElement> | null, newPage: number) => void,
   handleSortClick: (orderAttribute: string) => void,
   handleChangeRowsPerPage: (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void,
 }
 const JourneyListContainer = ({
   journeys, currentPage, orderBy, orderDirection, rowCount,
-  rowsPerPage, handlePageChange, handleSortClick, handleChangeRowsPerPage, 
-}:JourneyListContainerProps) => {
+  rowsPerPage, handlePageChange, handleSortClick, handleChangeRowsPerPage,
+}: JourneyListContainerProps) => {
 
-  return(
+  return (
     <Paper sx={{ width: '100%', mb: 2 }}>
 
       <TableContainer >
-        <Table 
+        <Table
           sx={{ minWidth: 500 }}
           size="small"
         >

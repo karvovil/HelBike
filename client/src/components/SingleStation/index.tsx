@@ -1,17 +1,17 @@
-import axios from "axios";
-import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-import { BaseStation } from "../../types";
-import { Box, Paper, Typography } from "@mui/material";
-import JourneyInfo from "./JourneyInfo";
+import axios from 'axios';
+import { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
+import { BaseStation } from '../../types';
+import { Box, Paper, Typography } from '@mui/material';
+import JourneyInfo from './JourneyInfo';
 
 interface SingleStationProps {stations: BaseStation[] }
 
-const SingleStation = ({stations}: SingleStationProps) => {
-  
+const SingleStation = ({ stations }: SingleStationProps) => {
+
   const { id } = useParams();
   const station = stations.find(s => s.id.toString() == id)
-  
+
   const [startTotal, setStartTotal] = useState<number>(0);
   const [endTotal, setEndTotal] = useState<number>(0);
   const [averageStartingDistance, setAverageStartingDistance] = useState<number>(0);
@@ -22,7 +22,7 @@ const SingleStation = ({stations}: SingleStationProps) => {
   const [topDestinationStations, setTopDestinationStations] = useState<string[]>([])
   const [topOriginStations, setTopOriginStations] = useState<string[]>([])
   const [loading, setLoading] = useState<boolean>(false)
-  
+
   useEffect(() => {
     setLoading(true)
     axios
@@ -40,15 +40,15 @@ const SingleStation = ({stations}: SingleStationProps) => {
         setLoading(false)
       })
   }, [id]);
-  if (!station) {return <></>}
-  if (loading) {return(
+  if (!station) { return <></> }
+  if (loading) { return (
     <>
       <Typography variant="h4">{station.name}</Typography>
       <Typography>...loading</Typography>
     </>
-  )}
+  ) }
   return (
-    <Paper sx={{pl: 1 }}>
+    <Paper sx={{ pl: 1 }}>
       <Typography variant="h4">{station.name} </Typography>
       <Typography variant="h6">{station.address}</Typography>
       <Typography><img src={`data:image/jpeg;base64,${mapPic}`} /></Typography>

@@ -56,7 +56,9 @@ export const getOneStation = async (id: string) => {
 
       const mapPic: { data: ArrayBuffer } | void = await axios
         .get(mapUrl, { responseType: 'arraybuffer' })
-        .catch(err => console.error(err));
+        .catch(err => console.error(
+          !process.env.MAPS_API_KEY ? 'MAPS_API_KEY missing' : err
+        ));
 
       const base64MapPic =
         mapPic ? Buffer.from(mapPic.data).toString('base64') : '';

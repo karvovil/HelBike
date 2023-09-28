@@ -2,7 +2,7 @@ import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { BaseStation } from '../../types';
-import { Box, Paper, Typography } from '@mui/material';
+import { Box, LinearProgress, Paper, Typography } from '@mui/material';
 import JourneyInfo from './JourneyInfo';
 
 interface SingleStationProps {stations: BaseStation[] }
@@ -44,7 +44,7 @@ const SingleStation = ({ stations }: SingleStationProps) => {
   if (loading) { return (
     <>
       <Typography variant="h4">{station.name}</Typography>
-      <Typography>...loading</Typography>
+      <LinearProgress />
     </>
   ) }
   return (

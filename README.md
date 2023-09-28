@@ -4,8 +4,6 @@ Described in detail at https://github.com/solita/dev-academy-2023-exercise
 
 Deployed at https://hel-bike.fly.dev/
 
-[Tuntikirjanpito](tunnit.md)
-
 Needs Node and sqlite3 to run. Tested with Node 18
 
 If you want to run backend with the full data you need to download following csv files to /files folder:

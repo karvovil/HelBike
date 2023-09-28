@@ -6,15 +6,15 @@ const router = express.Router();
 // eslint-disable-next-line @typescript-eslint/no-misused-promises
 router.get('/', async (req, res) => {
   try {
-    const whereClause =
-    req.query.departingStation
-      ? { departureStationName: String(req.query.departingStation) }
-      : req.query.returningStation
-        ? { returnStationName: String(req.query.returningStation) }
-        : {} ;
+
+    let findWhere = {};
+    if (req.query.departingStation)
+      findWhere = { departureStationName: String(req.query.departingStation) };
+    else if (req.query.returningStation)
+      findWhere = { returnStationName: String(req.query.returningStation) };
 
     const { count, rows } = await Journey.findAndCountAll({
-      where: whereClause,
+      where: findWhere,
       offset: Number(req.query.currentPage) * Number(req.query.rowsPerPage),
       limit: Number(req.query.rowsPerPage),
       order: [[String(req.query.orderBy), String(req.query.orderDirection)]]

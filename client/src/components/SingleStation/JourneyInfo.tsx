@@ -1,4 +1,5 @@
-import { Box, List, Button, ListItem, ListItemText, Typography, ListItemButton } from '@mui/material'
+import { List, ListItem, ListItemText, Typography, ListItemButton, Stack } from '@mui/material'
+import { Link as MUILink } from '@mui/material'
 import { Link } from 'react-router-dom'
 import { BaseStation } from '../../types'
 
@@ -15,30 +16,28 @@ const JourneyInfo = (
   { stations, departing, stationName, journeyTotal, averageDistance, averageDuration, topStations }: JourneyInfoProps) => {
 
   return (
-    <Box>
+    <Stack alignItems='center' justifyContent='space-between' >
+      <Stack spacing={1} margin={1}>
+        <Typography fontSize={20} >
+          {journeyTotal}
+          <MUILink
+            href={`/${departing ? 'Departing' : 'Returning'}Journeys/${stationName}`}
+            underline='hover'
+          >
+            <strong> {departing ? 'Departing' : 'Returning'} Journeys </strong>
+          </MUILink>
+        </Typography>
+        <Typography>
+        Average distance {Math.round(averageDistance)} m
+        </Typography>
+        <Typography>
+        Average duration {Math.floor(averageDuration / 60)} m {Math.round(averageDuration % 60)} s
+        </Typography>
+      </Stack>
       <List>
-        <Button
-          variant="contained"
-          component={Link}
-          to={`/departingJourneys/${stationName}`}>
-          {departing ? 'departing' : 'returning'} journeys
-        </Button>
-        <ListItem dense={true}>
-          <ListItemText primary={
-            `Number of journeys ${departing ? 'starting from' : 'ending at'} the station: ${journeyTotal}`
-          } />
-        </ListItem>
-        <ListItem dense={true}>
-          <ListItemText primary={`Average distance: ${Math.round(averageDistance)} m`} />
-        </ListItem>
-        <ListItem dense={true}>
-          <ListItemText primary={
-            `Average duration: ${Math.floor(averageDuration / 60)} m ${Math.round(averageDuration % 60)} s`
-          } />
-        </ListItem>
-      </List>
-      <List>
-        <Typography>Top 5 {departing ? 'destinations' : 'origin stations' }</Typography>
+        <Typography sx={{ textAlign: 'left', fontWeight: 600 }}>
+          Top 5 {departing ? 'origin stations' : 'destinations'}
+        </Typography>
         {topStations.map(name =>
           <ListItem dense={true} key={name}>
             <ListItemButton component={Link} to={`/stations/${stations.find(s => s.name === name)?.id}`}>
@@ -47,7 +46,7 @@ const JourneyInfo = (
           </ListItem>
         )}
       </List>
-    </Box>
+    </Stack>
   )
 }
 export default JourneyInfo

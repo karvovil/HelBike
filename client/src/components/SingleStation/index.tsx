@@ -2,7 +2,9 @@ import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { BaseStation } from '../../types';
-import { Box, LinearProgress, Paper, Typography } from '@mui/material';
+import { Box, LinearProgress, Paper, Stack, Typography } from '@mui/material';
+import EastRoundedIcon from '@mui/icons-material/East';
+import EastIcon from '@mui/icons-material/East';
 import JourneyInfo from './JourneyInfo';
 
 interface SingleStationProps {stations: BaseStation[] }
@@ -49,29 +51,34 @@ const SingleStation = ({ stations }: SingleStationProps) => {
   ) }
   return (
     <Paper sx={{ pl: 1 }}>
-      <Typography variant="h4">{station.name} </Typography>
-      <Typography variant="h6">{station.address}</Typography>
-      <Typography><img src={`data:image/jpeg;base64,${mapPic}`} /></Typography>
-      <Box sx={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)' }}>
-        <JourneyInfo
-          stations={stations}
-          departing={true}
-          stationName={station.name}
-          journeyTotal={startTotal}
-          averageDistance={averageStartingDistance}
-          averageDuration={averageStartingDuration}
-          topStations={topDestinationStations}
-        />
-        <JourneyInfo
-          stations={stations}
-          departing={false}
-          stationName={station.name}
-          journeyTotal={endTotal}
-          averageDistance={averageEndingDistance}
-          averageDuration={averageEndingDuration}
-          topStations={topOriginStations}
-        />
-      </Box>
+      <Typography variant="h4" align='center'>{station.name} </Typography>
+      <Typography variant="h6" align='center'>{station.address}</Typography>
+      <Typography align='center'><img src={`data:image/jpeg;base64,${mapPic}`} /></Typography>
+      <Stack direction="row" alignItems={'center'}>
+        <Box flexGrow='1'>
+          <JourneyInfo
+            stations={stations}
+            departing={true}
+            stationName={station.name}
+            journeyTotal={startTotal}
+            averageDistance={averageStartingDistance}
+            averageDuration={averageStartingDuration}
+            topStations={topOriginStations}
+          />
+        </Box>
+        <EastIcon fontSize='large' />
+        <Box flexGrow='1'>
+          <JourneyInfo
+            stations={stations}
+            departing={false}
+            stationName={station.name}
+            journeyTotal={endTotal}
+            averageDistance={averageEndingDistance}
+            averageDuration={averageEndingDuration}
+            topStations={topDestinationStations}
+          />
+        </Box>
+      </Stack>
     </Paper>
   );
 }

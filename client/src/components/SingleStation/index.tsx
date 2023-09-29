@@ -3,7 +3,6 @@ import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { BaseStation } from '../../types';
 import { Box, LinearProgress, Paper, Stack, Typography } from '@mui/material';
-import EastRoundedIcon from '@mui/icons-material/East';
 import EastIcon from '@mui/icons-material/East';
 import JourneyInfo from './JourneyInfo';
 
@@ -45,7 +44,7 @@ const SingleStation = ({ stations }: SingleStationProps) => {
   if (!station) { return <></> }
   if (loading) { return (
     <>
-      <Typography variant="h4">{station.name}</Typography>
+      <Typography variant="h4" align='center'>{station.name}</Typography>
       <LinearProgress />
     </>
   ) }

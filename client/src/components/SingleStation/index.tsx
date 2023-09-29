@@ -3,7 +3,6 @@ import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { BaseStation } from '../../types';
 import { Box, LinearProgress, Paper, Stack, Typography } from '@mui/material';
-import EastIcon from '@mui/icons-material/East';
 import JourneyInfo from './JourneyInfo';
 
 interface SingleStationProps {stations: BaseStation[] }
@@ -53,7 +52,7 @@ const SingleStation = ({ stations }: SingleStationProps) => {
       <Typography variant="h4" align='center'>{station.name} </Typography>
       <Typography variant="h6" align='center'>{station.address}</Typography>
       <Typography align='center'><img src={`data:image/jpeg;base64,${mapPic}`} /></Typography>
-      <Stack direction="row" alignItems={'center'}>
+      <Stack direction="row" >
         <Box flexGrow='1'>
           <JourneyInfo
             stations={stations}
@@ -62,10 +61,9 @@ const SingleStation = ({ stations }: SingleStationProps) => {
             journeyTotal={startTotal}
             averageDistance={averageStartingDistance}
             averageDuration={averageStartingDuration}
-            topStations={topOriginStations}
+            topStations={topDestinationStations}
           />
         </Box>
-        <EastIcon fontSize='large' />
         <Box flexGrow='1'>
           <JourneyInfo
             stations={stations}
@@ -74,7 +72,7 @@ const SingleStation = ({ stations }: SingleStationProps) => {
             journeyTotal={endTotal}
             averageDistance={averageEndingDistance}
             averageDuration={averageEndingDuration}
-            topStations={topDestinationStations}
+            topStations={topOriginStations}
           />
         </Box>
       </Stack>

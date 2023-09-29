@@ -36,7 +36,7 @@ const JourneyInfo = (
       </Stack>
       <List>
         <Typography sx={{ textAlign: 'left', fontWeight: 600 }}>
-          Top 5 {departing ? 'origin stations' : 'destinations'}
+          Top 5 {departing ? 'destinations' : 'origin stations'}
         </Typography>
         {topStations.map(name =>
           <ListItem dense={true} key={name}>
